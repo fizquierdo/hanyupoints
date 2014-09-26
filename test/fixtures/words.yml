@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  han: MyString
+  pinyin: MyString
+  meaning: MyString
+
+two:
+  han: MyString
+  pinyin: MyString
+  meaning: MyString
