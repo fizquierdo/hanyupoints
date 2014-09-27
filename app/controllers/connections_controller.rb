@@ -20,6 +20,7 @@ class ConnectionsController < ApplicationController
 
   # GET /connections/1/edit
   def edit
+    @words = Word.all
   end
 
   # POST /connections

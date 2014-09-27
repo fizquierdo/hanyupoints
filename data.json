@@ -22,5 +22,12 @@
 "edges":[
 ["我","我们",{color:"#00A0B0",directional:true}],
 ["我","我的",{color:"#00A0B0",directional:true}],
+["做","做音乐",{color:"#00A0B0",directional:true}],
+["做","做饭",{color:"#00A0B0",directional:true}],
+["饭","做饭",{color:"#00A0B0",directional:false}],
+["国","美国",{color:"#00A0B0",directional:true}],
+["国","中国",{color:"#00A0B0",directional:true}],
+["饭","米饭",{color:"#00A0B0",directional:false}],
+["音乐","做音乐",{color:"#00A0B0",directional:false}],
 ]
 }
