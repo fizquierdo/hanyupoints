@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>From:</strong>
+  <%= @connection.from %>
+</p>
+
+<p>
+  <strong>To:</strong>
+  <%= @connection.to %>
+</p>
+
+<p>
+  <strong>Color:</strong>
+  <%= @connection.color %>
+</p>
+
+<p>
+  <strong>Directional:</strong>
+  <%= @connection.directional %>
+</p>
+
+<%= link_to 'Edit', edit_connection_path(@connection) %> |
+<%= link_to 'Back', connections_path %>

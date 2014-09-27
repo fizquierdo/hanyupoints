@@ -1,0 +1,45 @@
+<%= form_for(@connection) do |f| %>
+	
+  <% if @connection.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@connection.errors.count, "error") %> prohibited this connection from being saved:</h2>
+
+      <ul>
+      <% @connection.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% #TODO show available words %>
+  <table>
+    <% @words.each_slice(10) do |words_slice| %>
+      <tr>
+    	<% words_slice.each do |word| %>
+            <td><%= word.han %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+
+  <div class="field">
+    <%= f.label :from %><br>
+    <%= f.text_field :from %>
+  </div>
+  <div class="field">
+    <%= f.label :to %><br>
+    <%= f.text_field :to %>
+  </div>
+  <div class="field">
+    <%= f.label :color %><br>
+    <%= f.text_field :color %>
+  </div>
+  <div class="field">
+    <%= f.label :directional %><br>
+    <%= f.check_box :directional %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

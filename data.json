@@ -1,0 +1,26 @@
+{
+"nodes":[
+{label:"我",meaning:"I/Me",pinyin:"wo3"},
+{label:"我的",meaning:"My",pinyin:""},
+{label:"我们",meaning:"Our",pinyin:""},
+{label:"做",meaning:"to do / to make",pinyin:"zou4"},
+{label:"做音乐",meaning:"to make music",pinyin:""},
+{label:"喜欢",meaning:"to like",pinyin:"xi3huan1"},
+{label:"做饭",meaning:"to cook",pinyin:"zuo4fan4"},
+{label:"音乐",meaning:"music",pinyin:"yin1yue4"},
+{label:"饭",meaning:"food",pinyin:""},
+{label:"米饭",meaning:"rice",pinyin:""},
+{label:"怎么样",meaning:"how is",pinyin:""},
+{label:"朋友",meaning:"friend",pinyin:"peng2you"},
+{label:"国",meaning:"country/kingdom",pinyin:"guo2"},
+{label:"中国",meaning:"China",pinyin:"zhong1guo2"},
+{label:"美国",meaning:"America",pinyin:"mei3guo2"},
+{label:"书",meaning:"book",pinyin:"shu1"},
+{label:"读书",meaning:"to study",pinyin:"du2shu1"},
+{label:"在",meaning:"placement-ing",pinyin:"zai4"},
+],
+"edges":[
+["我","我们",{color:"#00A0B0",directional:true}],
+["我","我的",{color:"#00A0B0",directional:true}],
+]
+}
