@@ -3,8 +3,8 @@ class StaticController < ApplicationController
 		render
 		@words = Word.all
 		@connections = Connection.all
+
 		# here we could generate the json file
-		
 		File.open(File.join(Rails.root, "data.json"), 'w') do |f|
 			f.puts "{"
 			# nodes
