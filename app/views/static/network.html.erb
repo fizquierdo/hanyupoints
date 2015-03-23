@@ -10,7 +10,6 @@ Built a network of <%= Word.all.size %> words
 <p id="pinyin">Pinyin</p>
 
 <script>
-//$.getJSON("data-han.json", function(json) {
 $.getJSON("data.json", function(json) {
 	jQuery(function(){
 	  var graph = new Springy.Graph();
