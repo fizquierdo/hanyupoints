@@ -1,7 +1,7 @@
 class StaticController < ApplicationController
 	def network
 		# manually generate the springy-formatted json file
-		File.open(File.join(Rails.root, "data.json"), 'w') do |f|
+		File.open(File.join(Rails.root, "public", "data.json"), 'w') do |f|
 			f.puts "{"
 			f.puts '"nodes":['
 			Word.all.each do |w|

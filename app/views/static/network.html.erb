@@ -1,3 +1,31 @@
 <p>
 Built a network of <%= Word.all.size %> words
 </p>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<%=javascript_include_tag "springy" %>
+<%=javascript_include_tag "springyui" %>
+
+<p id="place">Meaning</p>
+<p id="pinyin">Pinyin</p>
+
+<script>
+//$.getJSON("data-han.json", function(json) {
+$.getJSON("data.json", function(json) {
+	jQuery(function(){
+	  var graph = new Springy.Graph();
+	  graph.loadGenericJSON(json);
+	
+	  var springy = jQuery('#springydemo').springy({
+	    graph: graph,
+        nodeSelected: function(node){
+		  document.getElementById("place").innerHTML = node.data.meaning;
+		  document.getElementById("pinyin").innerHTML = node.data.pinyin;
+        }
+	  });
+	});
+
+});
+</script>
+
+<canvas id="springydemo" width="940" height="780" />
