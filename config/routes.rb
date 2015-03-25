@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   root 'words#index'
   get '/network', to:'static#network'
 
+  get 'flashcards/' => 'static#flashcards'
+  patch '/flashcards/:id/check' => 'static#check', as: :check
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

@@ -1,0 +1,22 @@
+<% flash.each do |name, msg| %>
+  <h4>
+  <%= content_tag :div, msg, class: "alert alert-info" %>
+  </h4>
+<% end %>
+
+<p>
+Write the pinyin for this word
+</p>
+<h1>
+<%= @word.han %>
+</h1>
+
+<%= form_for(@word, url: check_url(id: @word.id)) do |f| %>
+  <div class="field">
+    <%= label_tag 'pinyin' %>
+    <%= text_field_tag :answer %>
+    <%= submit_tag 'Check' %>
+  </div>
+<% end %>
+
+
