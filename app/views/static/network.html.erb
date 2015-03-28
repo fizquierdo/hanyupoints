@@ -6,8 +6,10 @@ Built a network of <%= Word.all.size %> words
 <%=javascript_include_tag "springy" %>
 <%=javascript_include_tag "springyui" %>
 
-<p id="place">Meaning</p>
-<p id="pinyin">Pinyin</p>
+<p>Meaning</p>
+<p id="meaning"></p>
+<p>Pinyin</p>
+<p id="pinyin"></p>
 
 <script>
 $.getJSON("data.json", function(json) {
@@ -18,7 +20,7 @@ $.getJSON("data.json", function(json) {
 	  var springy = jQuery('#springydemo').springy({
 	    graph: graph,
         nodeSelected: function(node){
-		  document.getElementById("place").innerHTML = node.data.meaning;
+		  document.getElementById("meaning").innerHTML = node.data.meaning;
 		  document.getElementById("pinyin").innerHTML = node.data.pinyin;
         }
 	  });
