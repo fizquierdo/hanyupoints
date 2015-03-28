@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   root 'words#index'
   get '/network', to:'static#network'
   get '/grammar_tree', to:'static#grammar_tree'
+  #get '/grammar_tree/:level', to:'static#grammar_tree'
 
   get 'flashcards/' => 'flashcards#flashcards'
   patch '/flashcards/:id/check' => 'flashcards#check', as: :check

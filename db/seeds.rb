@@ -83,8 +83,7 @@ end
 # grammar points
 BASE_URL = "http://resources.allsetlearning.com"
 
-#levels = %w(A1 A2 B1 B2 C1)
-levels = %w(A1)
+levels = %w(A1 A2 B1 B2 C1)
 levels.each do |level|
 	grammar_points = AllSetGrammarPoints.extract(BASE_URL + "/chinese/grammar/#{level}_grammar_points")
 	grammar_points.each do |gp|

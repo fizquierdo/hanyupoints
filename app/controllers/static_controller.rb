@@ -8,7 +8,12 @@ class StaticController < ApplicationController
 		# Avoid representing twice the same edge
 		all_edges = []
 		all_nodes = []
-		GrammarPoint.all.each do |gp| 
+		#level = params[:level].to_s || 'A1'
+		level = 'A1'
+		grammar_points = GrammarPoint.where(level: level)
+		@num_points = grammar_points.size
+		@level = level
+		grammar_points.each do |gp| 
 			# unique nodes
 			all_nodes << gp.to_json_node
 			# edges and possibly redundant nodes
