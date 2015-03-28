@@ -18,28 +18,28 @@ class GrammarPoint < ActiveRecord::Base
 	end
 	def to_json_connections
 		pattern = sanitize(self.pattern)
-		paths = []
-		path_nodes = []
+		json_edges = []
+		json_nodes = []
 		if self.h2
 			h2 = sanitize(self.h2)
-			paths << json_path(h1, h2)
-			path_nodes << json_node(h1)
-			path_nodes << json_node(h2)
+			json_edges << json_edge(h1, h2)
+			json_nodes << json_node(h1)
+			json_nodes << json_node(h2)
 			if self.h3
 				h3 = sanitize(self.h3)
-				paths << json_path(h3, pattern)
-				paths << json_path(h2, h3)
-				path_nodes << json_node(h3)
+				json_edges << json_edge(h3, pattern)
+				json_edges << json_edge(h2, h3)
+				json_nodes << json_node(h3)
 			else
-				paths << json_path(h2, pattern)
+				json_edges << json_edge(h2, pattern)
 			end
 		else
-			paths << json_path(h1, pattern)
+			json_edges << json_edge(h1, pattern)
 		end
-		[paths, path_nodes] 
+		[json_nodes, json_edges] 
 	end
 	private
-	def json_path(from, to, directional=false)
+	def json_edge(from, to, directional=false)
 		'["' + from + '","' +to+ '",{color:"#00A0B0",directional:'+ directional.to_s+'}],'
 	end
 	def json_node(label, eng='', example='')
