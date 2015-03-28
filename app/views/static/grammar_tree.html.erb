@@ -1,15 +1,29 @@
 <p>
-Built a network of <%= Word.all.size %> words
+Built a tree of <%= GrammarPoint.all.size %> grammar points
 </p>
 
 <%=javascript_include_tag "jquery.min" %>
 <%=javascript_include_tag "springy" %>
 <%=javascript_include_tag "springyui" %>
 
-<p>Meaning</p>
-<p id="meaning"></p>
-<p>Pinyin</p>
-<p id="pinyin"></p>
+<table>
+  <thead>
+    <tr>
+      <th>Grammar Point</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td id="eng"></td>
+      <td id="example"></td>
+    </tr>
+  </tbody>
+</table>
+
+<p id="eng"></p>
+<p id="example"></p>
 
 <script>
 $.getJSON("data.json", function(json) {
@@ -20,8 +34,8 @@ $.getJSON("data.json", function(json) {
 	  var springy = jQuery('#springydemo').springy({
 	    graph: graph,
         nodeSelected: function(node){
-		  document.getElementById("meaning").innerHTML = node.data.meaning;
-		  document.getElementById("pinyin").innerHTML = node.data.pinyin;
+		  document.getElementById("eng").innerHTML = node.data.eng;
+		  document.getElementById("example").innerHTML = node.data.example;
         }
 	  });
 	});

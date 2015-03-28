@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'words#index'
   get '/network', to:'static#network'
+  get '/grammar_tree', to:'static#grammar_tree'
 
   get 'flashcards/' => 'flashcards#flashcards'
   patch '/flashcards/:id/check' => 'flashcards#check', as: :check
