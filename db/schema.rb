@@ -11,13 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140926214454) do
+ActiveRecord::Schema.define(version: 20150328205909) do
 
   create_table "connections", force: true do |t|
     t.string   "from"
     t.string   "to"
     t.string   "color"
     t.boolean  "directional"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "grammar_points", force: true do |t|
+    t.string   "level"
+    t.string   "h1"
+    t.string   "h2"
+    t.string   "h3"
+    t.string   "eng"
+    t.string   "pattern"
+    t.string   "example"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

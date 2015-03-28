@@ -1,0 +1,27 @@
+<h1>Listing grammar points</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Level</th>
+      <th>Description</th>
+      <th>Grammar Point</th>
+      <th>Example</th>
+      <th>Class</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @grammar_points.each do |gp| %>
+      <tr>
+        <td><%= gp.level %></td>
+        <td><%= gp.eng %></td>
+        <td><%= gp.pattern %></td>
+        <td><%= gp.example %></td>
+        <td><%= gp.to_path %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

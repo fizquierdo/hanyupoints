@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  level: MyString
+  h1: MyString
+  h2: MyString
+  h3: MyString
+  eng: MyString
+  pattern: MyString
+  example: MyString
+
+two:
+  level: MyString
+  h1: MyString
+  h2: MyString
+  h3: MyString
+  eng: MyString
+  pattern: MyString
+  example: MyString
