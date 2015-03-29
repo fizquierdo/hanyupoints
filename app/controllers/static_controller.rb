@@ -4,12 +4,27 @@ class StaticController < ApplicationController
 		all_edges = Connection.all.map{|c| c.to_generic_json}
 	 	generate_jsonfile(all_nodes, all_edges)
 	end
-	def grammar_tree
+	def grammar_tree_A1
+	 	grammar_tree('A1')
+	end
+	def grammar_tree_A2
+	 	grammar_tree('A2')
+	end
+	def grammar_tree_B1
+	 	grammar_tree('B1')
+	end
+	def grammar_tree_B2
+	 	grammar_tree('B2')
+	end
+	def grammar_tree_C1
+	 	grammar_tree('C1')
+	end
+
+	private
+	def grammar_tree(level)
 		# Avoid representing twice the same edge
 		all_edges = []
 		all_nodes = []
-		#level = params[:level].to_s || 'A1'
-		level = 'A1'
 		grammar_points = GrammarPoint.where(level: level)
 		@num_points = grammar_points.size
 		@level = level
@@ -27,8 +42,6 @@ class StaticController < ApplicationController
 		end
 	 	generate_jsonfile(all_nodes, all_edges)
 	end
-
-	private
 	def generate_jsonfile(all_nodes, all_edges)
 		# manually generate the springy-formatted json file
 		File.open(File.join(Rails.root, "public", "data.json"), 'w') do |f|

@@ -9,8 +9,13 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'words#index'
   get '/network', to:'static#network'
-  get '/grammar_tree', to:'static#grammar_tree'
-  #get '/grammar_tree/:level', to:'static#grammar_tree'
+
+  # this below looks quite ugly, cant we pass the level in the URL?
+  get 'grammar_tree_A1', to:'static#grammar_tree_A1'
+  get 'grammar_tree_A2', to:'static#grammar_tree_A2'
+  get 'grammar_tree_B1', to:'static#grammar_tree_B1'
+  get 'grammar_tree_B2', to:'static#grammar_tree_B2'
+  get 'grammar_tree_C1', to:'static#grammar_tree_C1'
 
   get 'flashcards/' => 'flashcards#flashcards'
   patch '/flashcards/:id/check' => 'flashcards#check', as: :check
