@@ -1,17 +1,3 @@
-
-<div class="hero-unit span10">
-
-	<div class="row"> 
-		<% flash.each do |name, msg| %>
-			<div class="row"> 
-				<div class="alert fade in alert-<%= name %>">
-					<%= msg %>
-					<a href="#" data-dismiss="alert" class="close">&times</a>
-				</div>
-			</div>
-		<% end %>
-	</div> 
-
 	<div class="row"> 
 		<div class="well"> 
 			<p>Write the pinyin for this word</p>
@@ -27,8 +13,13 @@
 			</div>
 		<% end %>
 	</div> 
-
-</div>
-
-
-
+	<div class="row"> 
+		<% flash.each do |name, msg| %>
+			<div class="row"> 
+				<div class="alert fade-in alert-<%= name %>">
+					<%= msg %>
+					<a href="#" data-dismiss="alert" class="close">&times</a>
+				</div>
+			</div>
+		<% end %>
+	</div> 

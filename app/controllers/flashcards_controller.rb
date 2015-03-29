@@ -1,15 +1,14 @@
 class FlashcardsController < ApplicationController
 	def flashcards
-		random_id = rand(Word.count)
-		@word = Word.all[random_id]
+		words_with_pinyin = Word.all.select{|w| w.pinyin}
+		random_id = rand(words_with_pinyin.size)
+		@word = words_with_pinyin[random_id]
 	end
 	def check
 		@word = Word.find(params[:id])
-		# TODO add tests here, spec for eval is not obvious
 		answer = params[:answer] || 'no_answer'
 		answer = norm(answer).to_s
-		expected = @word.pinyin || '' # TODO the word should always have a pinyin entry!
-		expected = norm(expected).to_s
+		expected = norm(@word.pinyin).to_s
 		if answer == expected
 			# correct answer
 			num_correct = @word.num_correct + 1
