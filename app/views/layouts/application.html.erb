@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Han</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+	<head>
+		<title>Wodehanyu</title>
+		<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+		<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+		<%= csrf_meta_tags %>
+	</head>
+	<body>
 
-<%= yield %>
+		<%= render 'layouts/header' %>
+		<div id="main-container" class="container">
+			<%= yield %>
+			<%= render 'layouts/footer' %>
+		</div>
 
-</body>
+	</body>
 </html>
