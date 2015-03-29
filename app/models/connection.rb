@@ -13,6 +13,6 @@ class Connection < ActiveRecord::Base
 	end
 
 	def to_generic_json
-		'["' + self.from + '","' +self.to+ '",{color:"#00A0B0",directional:'+ self.directional.to_s+'}],'
+		ApplicationController.helpers.springy_edge(from, to, directional=true)
 	end
 end
