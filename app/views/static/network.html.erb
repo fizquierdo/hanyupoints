@@ -6,10 +6,21 @@ Built a network of <%= Word.all.size %> words
 <%=javascript_include_tag "springy" %>
 <%=javascript_include_tag "springyui" %>
 
-<p>Meaning</p>
-<p id="meaning"></p>
-<p>Pinyin</p>
-<p id="pinyin"></p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Meaning</th>
+      <th>Pinyin</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td id="meaning"></td>
+      <td id="pinyin"></td>
+    </tr>
+  </tbody>
+</table>
 
 <script>
 $.getJSON("data.json", function(json) {
