@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150329000734) do
+ActiveRecord::Schema.define(version: 20150331224245) do
 
   create_table "connections", force: true do |t|
     t.string   "from"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20150329000734) do
     t.datetime "updated_at"
     t.integer  "num_attempts", default: 0, null: false
     t.integer  "num_correct",  default: 0, null: false
+    t.integer  "level"
   end
 
 end

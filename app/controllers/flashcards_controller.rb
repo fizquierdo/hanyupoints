@@ -1,8 +1,10 @@
 class FlashcardsController < ApplicationController
 	def flashcards
-		words_with_pinyin = Word.all.select{|w| w.pinyin}
-		random_id = rand(words_with_pinyin.size)
-		@word = words_with_pinyin[random_id]
+		# TODO determemine the level we play at otherwise
+		@hsk_level = 1
+		words = Word.where(level: @hsk_level)
+		random_id = rand(words.size)
+		@word = words[random_id]
 	end
 	def check
 		@word = Word.find(params[:id])

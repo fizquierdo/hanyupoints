@@ -1,9 +1,23 @@
 class StaticController < ApplicationController
 	def network
-		words = Word.all
+		# the generic network can be a mix
+		@words = Word.where(level: [1,2])
+		hsk_network(@words)
+	end
+	def network_HSK1
+		@words = Word.where(level: 1)
+		hsk_network(@words)
+	end
+	def network_HSK2
+		@words = Word.where(level: 2)
+		hsk_network(@words)
+	end
+	def network_HSK3
+		@words = Word.where(level: 3)
+		hsk_network(@words)
+	end
+	def hsk_network(words)
 		all_nodes = words.map{|w| w.to_generic_json}
-		#all_edges = Connection.all.map{|c| c.to_generic_json}
-		# calculate the edges from the nodes (more flexible)
 		all_edges = calculate_edges(words.map{|w| w.han})
 	 	generate_jsonfile(all_nodes, all_edges)
 	end

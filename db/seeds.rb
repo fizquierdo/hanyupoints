@@ -82,24 +82,12 @@ end
 #end
 
 ###
-filename = File.join(Rails.root, "public", "data", "hsk1.txt")
-words = []
-File.open(filename).each_line do |l|
-	simpl, trad, pinyin, pinyin, eng = l.rstrip.split("\t")
-	words << simpl
-	Word.create({han: simpl, meaning: eng, pinyin: pinyin})
-end
-chars = []
-words.each do |w|
-	w.split('').each do |ch|
-		chars << ch unless chars.include? ch 
-	end
-end
-# show connections
-chars.each do |ch|
-	words.select{|w| w.include?(ch) and w.size > 1}.each do |w|
-		#puts "#{ch}->#{w}"	
-		Connection.create({from: ch, to: w, color: '#00A0B0', directional: true})
+
+(1..6).to_a.each do |level|
+	filename = File.join(Rails.root, "public", "data", "hsk#{level}.txt")
+	File.open(filename).each_line do |l|
+		simpl, trad, pinyin, pinyin, eng = l.rstrip.split("\t")
+		Word.create({han: simpl, meaning: eng, pinyin: pinyin, level: level})
 	end
 end
 

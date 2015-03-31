@@ -1,0 +1,41 @@
+<p> Network with <%= @words.size %> words </p>
+
+<%=javascript_include_tag "jquery.min" %>
+<%=javascript_include_tag "springy" %>
+<%=javascript_include_tag "springyui" %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Meaning</th>
+      <th>Pinyin</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td id="meaning"></td>
+      <td id="pinyin"></td>
+    </tr>
+  </tbody>
+</table>
+
+<script>
+$.getJSON("data.json", function(json) {
+	jQuery(function(){
+	  var graph = new Springy.Graph();
+	  graph.loadGenericJSON(json);
+	
+	  var springy = jQuery('#springydemo').springy({
+	    graph: graph,
+        nodeSelected: function(node){
+		  document.getElementById("meaning").innerHTML = node.data.meaning;
+		  document.getElementById("pinyin").innerHTML = node.data.pinyin;
+        }
+	  });
+	});
+
+});
+</script>
+
+<canvas id="springydemo" width="940" height="780" />
