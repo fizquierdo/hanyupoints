@@ -69,15 +69,38 @@ end
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 #
 # words
-File.open(File.join(Rails.root, "public", "words.txt")).each_line do |l|
-	han, meaning, pinyin = l.strip.split(',')
-	Word.create({han: han, meaning: meaning, pinyin: pinyin})
-end
 
-# connections (words should exist already)
-File.open(File.join(Rails.root, "public", "edges.txt")).each_line do |l|
-	from, to, color, directional = l.strip.split(',')
-	Connection.create({from: from, to: to, color: color, directional: directional})
+####
+## Self-defined words and connections
+#File.open(File.join(Rails.root, "public", "words.txt")).each_line do |l|
+#	han, meaning, pinyin = l.strip.split(',')
+#	Word.create({han: han, meaning: meaning, pinyin: pinyin})
+#end
+#File.open(File.join(Rails.root, "public", "edges.txt")).each_line do |l|
+#	from, to, color, directional = l.strip.split(',')
+#	Connection.create({from: from, to: to, color: color, directional: directional})
+#end
+
+###
+filename = File.join(Rails.root, "public", "data", "hsk1.txt")
+words = []
+File.open(filename).each_line do |l|
+	simpl, trad, pinyin, pinyin, eng = l.rstrip.split("\t")
+	words << simpl
+	Word.create({han: simpl, meaning: eng, pinyin: pinyin})
+end
+chars = []
+words.each do |w|
+	w.split('').each do |ch|
+		chars << ch unless chars.include? ch 
+	end
+end
+# show connections
+chars.each do |ch|
+	words.select{|w| w.include?(ch) and w.size > 1}.each do |w|
+		#puts "#{ch}->#{w}"	
+		Connection.create({from: ch, to: w, color: '#00A0B0', directional: true})
+	end
 end
 
 # grammar points
