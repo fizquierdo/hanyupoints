@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150401195501) do
+ActiveRecord::Schema.define(version: 20150401204025) do
 
   create_table "grammar_points", force: true do |t|
     t.string   "level"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20150401195501) do
     t.integer  "num_attempts", default: 0, null: false
     t.integer  "num_correct",  default: 0, null: false
     t.integer  "level"
+    t.string   "pinyin_num"
   end
 
 end

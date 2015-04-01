@@ -73,8 +73,8 @@ end
 (1..6).to_a.each do |level|
 	filename = File.join(Rails.root, "public", "data", "hsk#{level}.txt")
 	File.open(filename).each_line do |l|
-		simpl, trad, pinyin, pinyin, eng = l.rstrip.split("\t")
-		Word.create({han: simpl, meaning: eng, pinyin: pinyin, level: level})
+		simpl, trad, pinyin_num, pinyin, eng = l.rstrip.split("\t")
+		Word.create({han: simpl, meaning: eng, pinyin_num: pinyin_num, pinyin: pinyin,level: level})
 	end
 end
 

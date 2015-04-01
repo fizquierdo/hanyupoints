@@ -1,6 +1,6 @@
 class FlashcardsController < ApplicationController
 	def flashcards
-		# TODO determemine the level we play at otherwise
+		# TODO determine the level we play at otherwise
 		@hsk_level = 1
 		words = Word.where(level: @hsk_level)
 		random_id = rand(words.size)
@@ -10,7 +10,7 @@ class FlashcardsController < ApplicationController
 		@word = Word.find(params[:id])
 		answer = params[:answer] || 'no_answer'
 		answer = norm(answer).to_s
-		expected = norm(@word.pinyin).to_s
+		expected = norm(@word.pinyin_num).to_s
 		if answer == expected
 			# correct answer
 			num_correct = @word.num_correct + 1
