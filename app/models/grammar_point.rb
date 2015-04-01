@@ -7,7 +7,6 @@ class GrammarPoint < ActiveRecord::Base
 
 	def to_json_node
 		eng = sanitize(self.eng)
-		# show as label the pattern
 		json_node(pattern, eng, example)
 	end
 	def to_path
