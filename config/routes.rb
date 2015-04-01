@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :connections
   resources :words
   resources :grammar_points
 

@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  han: MyString
-  pinyin: MyString
-  meaning: MyString
+  han: "我"
+  pinyin: "wo3"
+  meaning: "Me, I"
 
 two:
-  han: MyString
-  pinyin: MyString
-  meaning: MyString
+  han: "你"
+  pinyin: "ni3"
+  meaning: "You"

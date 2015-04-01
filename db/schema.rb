@@ -11,16 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150331224245) do
-
-  create_table "connections", force: true do |t|
-    t.string   "from"
-    t.string   "to"
-    t.string   "color"
-    t.boolean  "directional"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(version: 20150401195501) do
 
   create_table "grammar_points", force: true do |t|
     t.string   "level"

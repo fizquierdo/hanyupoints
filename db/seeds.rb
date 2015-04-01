@@ -67,22 +67,9 @@ end
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-#
+
+
 # words
-
-####
-## Self-defined words and connections
-#File.open(File.join(Rails.root, "public", "words.txt")).each_line do |l|
-#	han, meaning, pinyin = l.strip.split(',')
-#	Word.create({han: han, meaning: meaning, pinyin: pinyin})
-#end
-#File.open(File.join(Rails.root, "public", "edges.txt")).each_line do |l|
-#	from, to, color, directional = l.strip.split(',')
-#	Connection.create({from: from, to: to, color: color, directional: directional})
-#end
-
-###
-
 (1..6).to_a.each do |level|
 	filename = File.join(Rails.root, "public", "data", "hsk#{level}.txt")
 	File.open(filename).each_line do |l|
