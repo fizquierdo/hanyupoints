@@ -16,4 +16,7 @@ class Word < ActiveRecord::Base
 		end
 		rate
 	end
+	def play
+		self.han.play "zh"
+	end
 end

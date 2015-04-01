@@ -5,8 +5,14 @@ class FlashcardsController < ApplicationController
 		words = Word.where(level: @hsk_level)
 		@word = words.sort_by{|w| w.success_rate}.first
 	end
+	def play
+		@word = Word.find(params[:id])
+		@word.play
+		redirect_to flashcards_url
+	end
 	def check
 		@word = Word.find(params[:id])
+		@word.play
 		answer = params[:answer] || 'no_answer'
 		answer = norm(answer).to_s
 		expected = norm(@word.pinyin_num).to_s

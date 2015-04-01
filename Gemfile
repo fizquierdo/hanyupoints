@@ -48,3 +48,5 @@ gem 'nokogiri'
 gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
 
+gem 'tts'
+

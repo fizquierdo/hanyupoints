@@ -2,6 +2,7 @@
 		<div class="well"> 
 			<p>Write the pinyin for this word (HSK <%= @hsk_level %>)</p>
 			<h1><%= @word.han %></h1>
+			<%= button_to "play", play_url(id: @word.id)  %>
 		</div>
 	</div> 
 	<div class="row"> 

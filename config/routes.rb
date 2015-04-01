@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
   get 'flashcards/' => 'flashcards#flashcards'
   patch '/flashcards/:id/check' => 'flashcards#check', as: :check
+  post '/flashcards/:id/play' => 'flashcards#play', as: :play
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
