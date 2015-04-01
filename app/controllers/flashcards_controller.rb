@@ -3,8 +3,7 @@ class FlashcardsController < ApplicationController
 		# TODO determine the level we play at otherwise
 		@hsk_level = 1
 		words = Word.where(level: @hsk_level)
-		random_id = rand(words.size)
-		@word = words[random_id]
+		@word = words.sort_by{|w| w.success_rate}.first
 	end
 	def check
 		@word = Word.find(params[:id])
@@ -19,7 +18,7 @@ class FlashcardsController < ApplicationController
 			# wrong answer
 			num_correct = @word.num_correct 
 			if strip_tone(answer) == strip_tone(expected)
-				flash_data = {warning: "Tone #{answer}, #{@word.han} should be #{@word.pinyin}"}
+				flash_data = {warning: "Tone #{answer}, #{@word.han} should be #{@word.pinyin_num}"}
 			else
 				flash_data = {danger:  "Wrong #{answer}, #{@word.han} should be #{@word.pinyin}"}
 			end

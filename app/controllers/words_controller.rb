@@ -4,7 +4,8 @@ class WordsController < ApplicationController
   # GET /words
   # GET /words.json
   def index
-    @words = Word.all
+    #@words = Word.all
+    @words = Word.where(level: 1).sort_by{|w| w.success_rate}
   end
 
   # GET /words/1

@@ -9,4 +9,11 @@ class Word < ActiveRecord::Base
 				 ['pinyin', self.pinyin || '']]	
 		ApplicationController.helpers.springy_node(pairs)
 	end
+	def success_rate
+		rate = 0
+		if self.num_attempts > 0
+			rate = self.num_correct.to_f / self.num_attempts.to_f
+		end
+		rate
+	end
 end
