@@ -5,6 +5,9 @@ class GrammarPoint < ActiveRecord::Base
 	validates :pattern, presence: true
 	validates :example, presence: true
 
+	def to_s
+		"#{self.pattern}\t#{self.example}"
+	end
 	def to_json_node
 		eng = sanitize(self.eng)
 		json_node(pattern, eng, example)

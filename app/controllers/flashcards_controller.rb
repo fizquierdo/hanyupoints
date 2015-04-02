@@ -5,7 +5,8 @@ class FlashcardsController < ApplicationController
 		@hsk_level = 1
 		words = Word.where(level: @hsk_level)
 		@word = words.sort_by{|w| w.success_rate}.first
-		@mastered_words = WordsHelper.mastered_words(words)
+		@mastered_words = WordsHelper.mastered(words)
+		@understandable_grammar_points = GrammarPointsHelper.understandable_with(@mastered_words)
 	end
 	def play
 		@word = Word.find(params[:id])
