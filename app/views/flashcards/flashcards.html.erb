@@ -24,3 +24,9 @@
 			</div>
 		<% end %>
 	</div> 
+	<div class="row"> 
+		<p>Words you know</p>
+		<p><%= @mastered_words.join(", ") %></p>
+		<p>Grammar points</p>
+		<p><%= @understandable_grammar_points.join(", ") %></p>
+	</div> 

@@ -78,9 +78,8 @@ end
 	end
 end
 
-# grammar points
+## grammar points
 BASE_URL = "http://resources.allsetlearning.com"
-
 levels = %w(A1 A2 B1 B2 C1)
 levels.each do |level|
 	grammar_points = AllSetGrammarPoints.extract(BASE_URL + "/chinese/grammar/#{level}_grammar_points")
@@ -90,3 +89,55 @@ levels.each do |level|
 		GrammarPoint.create(new_gp)
 	end
 end
+
+
+## Distribution of grammar points for each word
+#words = Word.where(level: 1)
+#gps = GrammarPoint.all.select{|gp| %w(A1 A2).include? gp.level}
+#words.each do |w|
+#	sample_gps = gps.select{|gp| gp.example.include? w.han}
+#	sample_gps = sample_gps.group_by{|gp| gp.level}
+#	sample_gps = sample_gps.map{|k,v| {k.to_sym => v.size}}
+#	puts "#{w.han}\t#{sample_gps}"
+#
+#	#puts "#{w.han} #{w.level}" unless sample_gps.empty?
+#	#sample_gps.each do |gp|
+#	#	puts " #{gp.example}\t#{gp.level}"
+#	#end
+#end
+
+
+## Distribution of words in each example
+#gps = GrammarPoint.all.select{|gp| %w(A1).include? gp.level}
+#examples = gps.map{|gp| gp.example}
+#words = Word.where(level: [1])
+#
+#p examples.size
+#
+#examples.each do |example|
+#	# distribution of words in this example
+#	sample_words = words.select{|w| example.include? w.han}\
+#						.group_by{|w| w.level}\
+#						.map{|k,v| {k.to_s => v.map{|p| p.han}}}
+#	# words in this example
+#	puts example
+#	example = example.strip
+#	sentence_delimiters = ['。','?', '!',  ',', '？']
+#	sentence_delimiters.each do |d|
+#		example = example.gsub(d, '')
+#	end
+#	extracted_words = example.split(" ").map{|s| s.strip}.select{|s| !s.empty?}
+#	
+#	# show
+#	puts "#{example}\t#{sample_words}\t#{example.split(" ")}"
+#	puts
+#
+#end
+
+
+
+
+
+
+
+

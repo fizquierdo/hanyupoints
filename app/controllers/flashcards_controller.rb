@@ -1,9 +1,11 @@
 class FlashcardsController < ApplicationController
+	include WordsHelper
 	def flashcards
 		# TODO determine the level we play at otherwise
 		@hsk_level = 1
 		words = Word.where(level: @hsk_level)
 		@word = words.sort_by{|w| w.success_rate}.first
+		@mastered_words = WordsHelper.mastered_words(words)
 	end
 	def play
 		@word = Word.find(params[:id])
