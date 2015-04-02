@@ -27,8 +27,29 @@
 	<div class="row"> 
 		<p>Words you know</p>
 		<p><%= @mastered_words.join(", ") %></p>
-		<p>Grammar points</p>
-		<% @understandable_grammar_points.each do |gp| %>
-		<p><%= gp.to_s %></p>
-	    <% end %>
+		<% unless @understandable_grammar_points.empty? %>
+			<p>Grammar points you can understand</p>
+			<table class="table">
+			  <thead>
+			    <tr>
+			      <th>Point</th>
+			      <th>Example</th>
+			      <th>Meaning</th>
+			      <th>Proportion known</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+				<% @understandable_grammar_points.each do |hgp| %>
+				<% gp = hgp[:gp] %>
+				<% rate = hgp[:rate] %>
+			    <tr>
+				  <td><%= gp.pattern %></td>
+				  <td><%= gp.example %></td>
+				  <td><%= gp.eng %></td>
+				  <td><%= rate %></td>
+			    </tr>
+	    		<% end %>
+			  </tbody>
+			</table>
+		<% end %>
 	</div> 
