@@ -22,14 +22,14 @@ class FlashcardsController < ApplicationController
 		if answer == expected
 			# correct answer
 			num_correct = @word.num_correct + 1
-			flash_data = {success: "Correct: #{@word.han}  #{@word.pinyin}"}
+			flash_data = {success: "Correct: #{@word.han}  #{@word.pinyin} (#{@word.meaning})"}
 		else
 			# wrong answer
 			num_correct = @word.num_correct 
 			if strip_tone(answer) == strip_tone(expected)
-				flash_data = {warning: "Tone #{answer}, #{@word.han} should be #{@word.pinyin_num}"}
+				flash_data = {warning: "Tone #{answer}, #{@word.han} should be #{@word.pinyin_num}  (#{@word.meaning})"}
 			else
-				flash_data = {danger:  "Wrong #{answer}, #{@word.han} should be #{@word.pinyin}"}
+				flash_data = {danger:  "Wrong #{answer}, #{@word.han} should be #{@word.pinyin}  (#{@word.meaning})"}
 			end
 		end
 		num_attempts = @word.num_attempts + 1
