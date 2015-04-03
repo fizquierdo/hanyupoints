@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   resources :words
   resources :grammar_points
-
+  # Example of named route that can be invoked with purchase_url(id: product.id)
+  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
+  get 'grammar_points/:id/examples' => 'grammar_points#examples', as: :examples
+	
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

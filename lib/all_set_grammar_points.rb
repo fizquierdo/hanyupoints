@@ -40,9 +40,10 @@ module AllSetGrammarPoints
 			list_items.each do |li|
 				# skip special examples such as 'x' (wrong) or 'o' (correct)
 				next unless li['class'].nil?
-				sentence = li.text.split('。').first
-				pinyin = li.css("span.pinyin").text
-				translation = li.css("span.trans").text
+				sentence    = li.text.strip
+				pinyin      = li.css("span.pinyin").text.strip
+				translation = li.css("span.trans").text.strip
+				sentence    = sentence.gsub(pinyin, '').gsub(translation, '').strip
 				sentences << {sentence: sentence, pinyin: pinyin, translation: translation}
 			end
 		end
