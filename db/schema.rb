@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150403170926) do
+ActiveRecord::Schema.define(version: 20150403172835) do
 
   create_table "grammar_point_examples", force: true do |t|
     t.integer  "grammar_point_id"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20150403170926) do
     t.string   "example"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "link"
   end
 
   create_table "words", force: true do |t|

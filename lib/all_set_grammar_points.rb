@@ -32,7 +32,6 @@ module AllSetGrammarPoints
 	end
 
 	def self.extract_sentences(url)
-		puts "extracting " + url.to_s
 		sentences = []
 		page = Nokogiri::HTML(open(url))
 		# Each table of sentences is a liju node
@@ -43,8 +42,8 @@ module AllSetGrammarPoints
 				next unless li['class'].nil?
 				sentence = li.text.split('。').first
 				pinyin = li.css("span.pinyin").text
-				trans = li.css("span.trans").text
-				sentences << {sentence: sentence, pinyin: pinyin, trans: trans}
+				translation = li.css("span.trans").text
+				sentences << {sentence: sentence, pinyin: pinyin, translation: translation}
 			end
 		end
 		sentences 

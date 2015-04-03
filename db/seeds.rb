@@ -28,10 +28,14 @@ levels.each do |level|
 		gp_data = gp.to_db
 		gp_data[:level] = level
 		gp = GrammarPoint.create(gp_data)
-		gp_examples = AllSetGrammarPoints.extract_sentences(gp_data[:link])
-		gp_examples.each do |example|
-			GrammarPointExample.create(example + {grammar_point_id: gp.id})
+		begin
+			gp_examples = AllSetGrammarPoints.extract_sentences(gp_data[:link])
+			gp_examples.each do |example|
+				GrammarPointExample.create(example.merge({grammar_point_id: gp.id}))
+			end
+			puts "#{level}, #{gp_data[:pattern]}, #{gp_examples.size} examples added"
+		rescue
+			puts "#{level}, #{gp_data[:pattern]}, skipping examples"
 		end
-		puts "#{level}, #{gp_data.pattern}, #{gp_examples.size} examples added"
 	end
 end
