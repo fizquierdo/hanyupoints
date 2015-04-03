@@ -6,9 +6,11 @@ class FlashcardsController < ApplicationController
 		words = Word.where(level: @hsk_level)
 		@word = words.sort_by{|w| w.success_rate}.first
 		@mastered_words = WordsHelper.mastered(words)
-		@understandable_grammar_points = GrammarPointsHelper.understandable_with(@mastered_words)
+		@relevant_grammar_points = GrammarPointsHelper.grammar_points_with(@word.han)
+		@understandable_examples = GrammarPointsHelper.understandable_with(@relevant_grammar_points, @mastered_words)
 	end
 	def play
+		# play the sound button
 		@word = Word.find(params[:id])
 		@word.play
 		redirect_to flashcards_url

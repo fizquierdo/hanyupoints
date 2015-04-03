@@ -1,55 +1,89 @@
-	<div class="row"> 
-		<div class="well"> 
-			<p>Write the pinyin for this word (HSK <%= @hsk_level %>)</p>
-			<h1><%= @word.han %></h1>
-			<%= button_to "play", play_url(id: @word.id)  %>
+
+<div class="row"> 
+<div class="panel panel-warning">
+		<div class="panel-heading">
+	Words you have learnt so far
 		</div>
-	</div> 
-	<div class="row"> 
-		<%= form_for(@word, url: check_url(id: @word.id)) do |f| %>
-			<div class="field">
-				<%= label_tag 'pinyin' %>
-				<%= text_field_tag :answer %>
-				<%= submit_tag 'Check' %>
+	<div class="panel-body">
+	<p><%= @mastered_words.join(", ") %></p>
+</div>
+</div>
+</div> 
+
+<div class="row"> 
+	<% flash.each do |name, msg| %>
+		<div class="row"> 
+			<div class="alert fade-in alert-<%= name %>">
+				<%= msg %>
+				<a href="#" data-dismiss="alert" class="close">&times</a>
 			</div>
-		<% end %>
-	</div> 
-	<div class="row"> 
-		<% flash.each do |name, msg| %>
-			<div class="row"> 
-				<div class="alert fade-in alert-<%= name %>">
-					<%= msg %>
-					<a href="#" data-dismiss="alert" class="close">&times</a>
-				</div>
-			</div>
-		<% end %>
-	</div> 
-	<div class="row"> 
-		<p>Words you know</p>
-		<p><%= @mastered_words.join(", ") %></p>
-		<% unless @understandable_grammar_points.empty? %>
-			<p>Grammar points you can understand</p>
-			<table class="table">
-			  <thead>
-			    <tr>
-			      <th>Point</th>
-			      <th>Example</th>
-			      <th>Meaning</th>
-			      <th>Proportion known</th>
-			    </tr>
-			  </thead>
-			  <tbody>
-				<% @understandable_grammar_points.each do |hgp| %>
-				<% gp = hgp[:gp] %>
-				<% rate = hgp[:rate] %>
-			    <tr>
-				  <td><%= gp.pattern %></td>
-				  <td><%= gp.example %></td>
-				  <td><%= gp.eng %></td>
-				  <td><%= rate %></td>
-			    </tr>
-	    		<% end %>
-			  </tbody>
-			</table>
-		<% end %>
-	</div> 
+		</div>
+	<% end %>
+</div> 
+
+
+<div class="row"> 
+<div class="jumbotron ">
+	 <p class="text-muted">
+	 Enter pinyin for this word (HSK <%= @hsk_level %>)
+	 </p>
+	<h1><%= @word.han %></h1>
+	<%= form_for(@word, url: check_url(id: @word.id)) do |f| %>
+		<div class="field">
+			<%= text_field_tag :answer %>
+			<%= submit_tag 'Check', class: "btn btn-primary" %>
+		</div>
+	<% end %>
+	<%= button_to "play sound", play_url(id: @word.id)  %>
+	</div>
+</div>
+</div> 
+
+
+<div class="row"> 
+	<% unless @relevant_grammar_points.empty? %>
+		<table class="table table-condensed">
+			<thead>
+				<tr>
+					<th>Level</th>
+					<th>Point</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @relevant_grammar_points.each do |gp| %>
+					<tr>
+						<td><%= gp.level %></td>
+						<td><%= gp.pattern %></td>
+						<td><%= gp.eng %></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	<% end %>
+	<% unless @understandable_examples.empty? %>
+		<p>Sentences you can understand</p>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Point</th>
+					<th>Sentence</th>
+					<th>Meaning</th>
+					<th>Proportion known</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @understandable_examples.each do |h| %>
+					<% example = h[:example] %>
+					<% proportion = h[:proportion] %>
+					<tr>
+						<td><%= example.grammar_point.pattern %></td>
+						<td><%= example.sentence %></td>
+						<td><%= example.translation %></td>
+						<td><%= proportion %></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	<% end %>
+</div> 
