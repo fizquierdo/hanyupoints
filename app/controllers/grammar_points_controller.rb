@@ -10,4 +10,7 @@ class GrammarPointsController < ApplicationController
     @grammar_point = GrammarPoint.find(gp_id)
 		@examples = GrammarPointExample.where(grammar_point_id: gp_id)
 	end
+	def list_examples
+		@examples = GrammarPointExample.all
+	end
 end
