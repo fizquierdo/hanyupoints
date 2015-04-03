@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  grammar_point_id: 
+  sentence: MyString
+  pinyin: MyString
+  translation: MyString
+
+two:
+  grammar_point_id: 
+  sentence: MyString
+  pinyin: MyString
+  translation: MyString

@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150401204025) do
+ActiveRecord::Schema.define(version: 20150403170926) do
+
+  create_table "grammar_point_examples", force: true do |t|
+    t.integer  "grammar_point_id"
+    t.string   "sentence"
+    t.string   "pinyin"
+    t.string   "translation"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "grammar_point_examples", ["grammar_point_id"], name: "index_grammar_point_examples_on_grammar_point_id"
 
   create_table "grammar_points", force: true do |t|
     t.string   "level"
