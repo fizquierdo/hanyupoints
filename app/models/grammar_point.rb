@@ -10,7 +10,8 @@ class GrammarPoint < ActiveRecord::Base
 	end
 	def to_json_node
 		eng = sanitize(self.eng)
-		json_node(pattern, eng, example)
+		url = Rails.application.routes.url_helpers.examples_path(id: self.id)
+		json_node(pattern, eng, example, url)
 	end
 	def to_path
 		path = self.h1
@@ -46,10 +47,11 @@ class GrammarPoint < ActiveRecord::Base
 	def json_edge(from, to, directional=true)
 		ApplicationController.helpers.springy_edge(from, to, directional)
 	end
-	def json_node(label, eng='', example='')
+	def json_node(label, eng='', example='', url = '')
 		label = sanitize(label)
 		pairs =[['eng', eng], 
 			  	['label', label], 
+			  	['url', url], 
 				['example', example]]
 		ApplicationController.helpers.springy_node(pairs)
 	end
