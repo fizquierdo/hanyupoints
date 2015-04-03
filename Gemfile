@@ -50,3 +50,6 @@ gem 'autoprefixer-rails'
 
 gem 'tts'
 
+#gem 'table_print'
+gem 'terminal-table'
+
