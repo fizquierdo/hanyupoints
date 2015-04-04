@@ -10,7 +10,7 @@
 require 'all_set_grammar_points'
 
 # words
-(1..6).to_a.each do |level|
+(1..4).to_a.each do |level|
 	filename = File.join(Rails.root, "public", "data", "hsk#{level}.txt")
 	File.open(filename).each_line do |l|
 		simpl, trad, pinyin_num, pinyin, eng = l.rstrip.split("\t")
@@ -20,7 +20,7 @@ end
 
 ## grammar points
 BASE_URL = "http://resources.allsetlearning.com"
-levels = %w(A1 A2 B1 B2 C1)
+levels = %w(A1 A2 B1 B2)
 levels.each do |level|
 	url_extension = "/chinese/grammar/#{level}_grammar_points"
 	grammar_points = AllSetGrammarPoints.extract_gp(BASE_URL, url_extension)

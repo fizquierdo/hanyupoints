@@ -23,7 +23,6 @@ Rails.application.routes.draw do
   get 'grammar_tree_A2', to:'static#grammar_tree_A2'
   get 'grammar_tree_B1', to:'static#grammar_tree_B1'
   get 'grammar_tree_B2', to:'static#grammar_tree_B2'
-  get 'grammar_tree_C1', to:'static#grammar_tree_C1'
 
   get 'flashcards/' => 'flashcards#flashcards'
   patch '/flashcards/:id/check' => 'flashcards#check', as: :check

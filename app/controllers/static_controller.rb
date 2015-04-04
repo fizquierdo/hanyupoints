@@ -4,6 +4,7 @@ class StaticController < ApplicationController
 		@words = Word.where(level: [1,2])
 		hsk_network(@words)
 	end
+	# TODO metaprogramming?
 	def network_HSK1
 		@words = Word.where(level: 1)
 		hsk_network(@words)
@@ -32,9 +33,6 @@ class StaticController < ApplicationController
 	end
 	def grammar_tree_B2
 	 	grammar_tree('B2')
-	end
-	def grammar_tree_C1
-	 	grammar_tree('C1')
 	end
 
 	private
