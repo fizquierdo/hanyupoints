@@ -3,10 +3,11 @@ class Word < ActiveRecord::Base
 	validates :pinyin_num, presence: true
 	validates :pinyin, presence: true
 	
-	def to_generic_json
+	def to_node
 		pairs = [['label', self.han || ''], 
 			  	   ['eng', self.meaning || ''], 
-				     ['example', self.pinyin || '']]	
+			  	   ['pinyin', self.pinyin || ''], 
+				     ['example', self.han || '']]	
 		ApplicationController.helpers.springy_node(pairs)
 	end
 	def success_rate

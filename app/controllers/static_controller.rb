@@ -13,12 +13,12 @@ class StaticController < ApplicationController
 		grammar_network_with_words(words, @grammar_levels)
 	end
 	def hsk_network(words)
-		all_nodes = words.map{|w| w.to_generic_json}
+		all_nodes = words.map{|w| w.to_node}
 		all_edges = character_edges(words.map{|w| w.han})
 	 	generate_jsonfile(all_nodes, all_edges)
 	end
 	def hsk_grammar_network(words, grammar_points)
-		all_nodes = words.map{|w| w.to_generic_json}
+		all_nodes = words.map{|w| w.to_node}
 		all_edges = character_edges(words.map{|w| w.han})
 	 	generate_jsonfile(all_nodes, all_edges)
 	end
@@ -76,9 +76,9 @@ class StaticController < ApplicationController
 		@level = level
 		grammar_points.each do |gp| 
 			# unique nodes
-			all_nodes << gp.to_json_node
+			all_nodes << gp.to_node
 			# edges and possibly redundant nodes
-			new_nodes, edges = gp.to_json_connections
+			new_nodes, edges = gp.to_connections
 			edges.each do |edge|
 				all_edges << edge unless all_edges.include?(edge)
 			end
@@ -103,8 +103,7 @@ class StaticController < ApplicationController
 		end
 		# word nodes
 		words.each do |w|
-				pairs = [['label', w.han], ['eng', w.meaning], ['example', w.han]]
-				all_nodes << ApplicationController.helpers.springy_node(pairs)
+				all_nodes << w.to_node
 		end
 		tones = words.group_by{|w| w.tone_class}
 		tones.each_pair do |tone, words|
@@ -129,12 +128,11 @@ class StaticController < ApplicationController
 
 		# nodes from words
 		words.each do |w|
-				pairs = [['label', w.han], ['eng', w.meaning], ['example', w.han]]
-				all_nodes << ApplicationController.helpers.springy_node(pairs)
+				all_nodes << w.to_node
 		end
 		grammar_points.each do |gp| 
 			# nodes grammar points
-			all_nodes << gp.to_json_node
+			all_nodes << gp.to_node
 			# edges
 			words.select{|w| gp.pattern.include? w.han}.each do |w|
 				all_edges << ApplicationController.helpers.springy_edge(w.han, gp.short_pattern, directional=true)

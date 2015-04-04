@@ -11,7 +11,7 @@ class GrammarPoint < ActiveRecord::Base
 	def short_pattern
 		sanitize(self.pattern)
 	end
-	def to_json_node
+	def to_node
 		eng = sanitize(self.eng)
 		url = Rails.application.routes.url_helpers.examples_path(id: self.id)
 		json_node(pattern, eng, example, url)
@@ -22,7 +22,7 @@ class GrammarPoint < ActiveRecord::Base
 		path += '/' + self.h3 if self.h3
 		path
 	end
-	def to_json_connections(include_h1=true)
+	def to_connections(include_h1=true)
 		# generate nodes and edges required to describne the grammar path of this point 
 		pattern = sanitize(self.pattern)
 		json_edges = []

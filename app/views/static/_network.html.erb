@@ -6,7 +6,8 @@
   <thead>
     <tr>
       <th>Meaning</th>
-      <th>Example/Pinyin</th>
+      <th>Example</th>
+      <th>Pinyin</th>
       <th>More examples</th>
     </tr>
   </thead>
@@ -15,6 +16,7 @@
     <tr>
       <td id="eng"></td>
       <td id="example"></td>
+      <td id="pinyin"></td>
       <td><%= link_to "Show more", root_url, :id => "elink" %><td>
     </tr>
   </tbody>
@@ -31,6 +33,7 @@ $.getJSON("data.json", function(json) {
         nodeSelected: function(node){
 		  document.getElementById("eng").innerHTML = node.data.eng;
 		  document.getElementById("example").innerHTML = node.data.example;
+		  document.getElementById("pinyin").innerHTML = node.data.pinyin;
 		  $("#elink").attr("href", node.data.url);
         }
 	  });
