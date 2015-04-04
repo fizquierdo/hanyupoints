@@ -2,6 +2,19 @@
 <%=javascript_include_tag "springy" %>
 <%=javascript_include_tag "springyui" %>
 
+<table>
+  <tbody>
+    <tr>
+      <td> Success scale - </td>
+      <td style="color:<%=ApplicationController.helpers.gradient(0.0)%>">0% - </td>
+      <td style="color:<%=ApplicationController.helpers.gradient(0.25)%>">25% - </td>
+      <td style="color:<%=ApplicationController.helpers.gradient(0.50)%>">50% -</td>
+      <td style="color:<%=ApplicationController.helpers.gradient(0.75)%>">75% - </td>
+      <td style="color:<%=ApplicationController.helpers.gradient(1.0)%>">100% </td>
+    </tr>
+  </tbody>
+</table>
+
 <table class="table">
   <thead>
     <tr>
@@ -41,5 +54,6 @@ $.getJSON("data.json", function(json) {
 
 });
 </script>
+
 
 <canvas id="springydemo" width="940" height="780" />
