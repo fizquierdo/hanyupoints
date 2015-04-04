@@ -19,4 +19,7 @@ class Word < ActiveRecord::Base
 	def play
 		self.han.play "zh"
 	end
+	def present_in_patterns?(patterns)
+		patterns.select{|p| p.include? self.han}.size > 0
+	end
 end

@@ -8,6 +8,9 @@ class GrammarPoint < ActiveRecord::Base
 	def to_s
 		"#{self.pattern}\t#{self.example}"
 	end
+	def short_pattern
+		sanitize(self.pattern)
+	end
 	def to_json_node
 		eng = sanitize(self.eng)
 		url = Rails.application.routes.url_helpers.examples_path(id: self.id)
@@ -20,6 +23,7 @@ class GrammarPoint < ActiveRecord::Base
 		path
 	end
 	def to_json_connections(include_h1=true)
+		# generate nodes and edges required to describne the grammar path of this point 
 		pattern = sanitize(self.pattern)
 		json_edges = []
 		json_nodes = []
@@ -43,6 +47,10 @@ class GrammarPoint < ActiveRecord::Base
 		end
 		[json_nodes, json_edges] 
 	end
+	def present_in_words?(words)
+		words.select{|w| self.pattern.include?(w.han)}.size > 0
+	end
+
 	private
 	def json_edge(from, to, directional=true)
 		ApplicationController.helpers.springy_edge(from, to, directional)

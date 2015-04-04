@@ -1,7 +1,7 @@
 
 def collect_levels
 		word_level = [1, 2]
-		gp_levels = %w(A1 A2)
+		gp_levels = %w(A1, A2)
 		words = Word.where(level: word_level)
 		gps = GrammarPoint.all.select{|gp| gp_levels.include? gp.level}
 		[words, gps]
