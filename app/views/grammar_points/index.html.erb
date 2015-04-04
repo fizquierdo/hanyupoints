@@ -12,7 +12,7 @@
 
   <tbody>
     <% @grammar_points.each do |gp| %>
-      <tr>
+      <tr class="active">
         <td><%= gp.level %></td>
         <td><%= link_to gp.eng, examples_url(id:gp.id) %></td>
         <td><%= gp.pattern %></td>

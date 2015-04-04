@@ -14,3 +14,15 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+
+# we keep them for reference
+app/assets/images/dragon.jpg
+app/assets/images/dragon_2.jpg
+app/assets/images/dragon_30.jpg
+
+# just for notes
+TODO
+
+# re-created all the time
+public/data.json
