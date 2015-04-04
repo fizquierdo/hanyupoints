@@ -5,8 +5,8 @@ class Word < ActiveRecord::Base
 	
 	def to_generic_json
 		pairs = [['label', self.han || ''], 
-			  	 ['meaning', self.meaning || ''], 
-				 ['pinyin', self.pinyin || '']]	
+			  	   ['eng', self.meaning || ''], 
+				     ['example', self.pinyin || '']]	
 		ApplicationController.helpers.springy_node(pairs)
 	end
 	def success_rate

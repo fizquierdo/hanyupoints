@@ -2,8 +2,10 @@ class StaticController < ApplicationController
 	def network
 		# TODO here we could inject the known_words
 		#      or the words that are currently being studied
-		@words = Word.where(level: [1, 2])
-		grammar_network_with_words(@words, 'A1')
+		@word_levels = [1,2]
+		@grammar_levels = ['A1']
+		words = Word.where(level: @word_levels)
+		grammar_network_with_words(words, @grammar_levels)
 	end
 	def hsk_network(words)
 		all_nodes = words.map{|w| w.to_generic_json}

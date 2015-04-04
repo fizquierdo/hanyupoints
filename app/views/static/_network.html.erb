@@ -1,5 +1,3 @@
-<p> Network with <%= @words.size %> words </p>
-
 <%=javascript_include_tag "jquery.min" %>
 <%=javascript_include_tag "springy" %>
 <%=javascript_include_tag "springyui" %>
@@ -8,14 +6,16 @@
   <thead>
     <tr>
       <th>Meaning</th>
-      <th>Pinyin</th>
+      <th>Example/Pinyin</th>
+      <th>More examples</th>
     </tr>
   </thead>
 
   <tbody>
     <tr>
-      <td id="meaning"></td>
-      <td id="pinyin"></td>
+      <td id="eng"></td>
+      <td id="example"></td>
+      <td><%= link_to "Show more", root_url, :id => "elink" %><td>
     </tr>
   </tbody>
 </table>
@@ -29,8 +29,9 @@ $.getJSON("data.json", function(json) {
 	  var springy = jQuery('#springydemo').springy({
 	    graph: graph,
         nodeSelected: function(node){
-		  document.getElementById("meaning").innerHTML = node.data.meaning;
-		  document.getElementById("pinyin").innerHTML = node.data.pinyin;
+		  document.getElementById("eng").innerHTML = node.data.eng;
+		  document.getElementById("example").innerHTML = node.data.example;
+		  $("#elink").attr("href", node.data.url);
         }
 	  });
 	});

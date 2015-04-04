@@ -1,47 +1,4 @@
-<%=javascript_include_tag "jquery.min" %>
-<%=javascript_include_tag "springy" %>
-<%=javascript_include_tag "springyui" %>
-
 <h5>
 Level <%= @level %>:  <%= @num_points %> grammar points
 </h5>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th>Grammar Point</th>
-      <th>Example</th>
-      <th>More examples</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr>
-      <td id="eng"></td>
-      <td id="example"></td>
-      <td><%= link_to "Show more", root_url, :id => "elink" %><td>
-    </tr>
-  </tbody>
-</table>
-
-
-<script>
-$.getJSON("data.json", function(json) {
-	jQuery(function(){
-	  var graph = new Springy.Graph();
-	  graph.loadGenericJSON(json);
-	
-	  var springy = jQuery('#springydemo').springy({
-	    graph: graph,
-        nodeSelected: function(node){
-		  document.getElementById("eng").innerHTML = node.data.eng;
-		  document.getElementById("example").innerHTML = node.data.example;
-		  $("#elink").attr("href", node.data.url);
-        }
-	  });
-	});
-
-});
-</script>
-
-<canvas id="springydemo" width="940" height="780" />
+<%= render 'network' %>
