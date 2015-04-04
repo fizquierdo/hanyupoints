@@ -22,13 +22,15 @@ class FlashcardsController < ApplicationController
 		answer = norm(answer).to_s
 		expected = norm(@word.pinyin_num).to_s
 		if answer == expected
-			# correct answer
-			num_correct = @word.num_correct + 1
+			# correct answer: 2 points
+			num_correct = @word.num_correct + 2
 			flash_data = {success: "Correct: #{@word.han}  #{@word.pinyin} (#{@word.meaning})"}
 		else
 			# wrong answer
 			num_correct = @word.num_correct 
 			if strip_tone(answer) == strip_tone(expected)
+				# correct tone: 1 point
+				num_correct = @word.num_correct + 1
 				flash_data = {warning: "Tone #{answer}, #{@word.han} should be #{@word.pinyin_num}  (#{@word.meaning})"}
 			else
 				flash_data = {danger:  "Wrong #{answer}, #{@word.han} should be #{@word.pinyin}  (#{@word.meaning})"}

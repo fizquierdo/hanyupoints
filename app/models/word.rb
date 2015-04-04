@@ -12,7 +12,8 @@ class Word < ActiveRecord::Base
 	def success_rate
 		rate = 0
 		if self.num_attempts > 0
-			rate = self.num_correct.to_f / self.num_attempts.to_f
+			total_possible_points = self.num_attempts.to_f * 2
+			rate = self.num_correct.to_f / total_possible_points
 		end
 		rate
 	end
