@@ -59,4 +59,18 @@ namespace :data do
 			end
 		end
 	end
+
+	desc "Shows tones"
+	task tone_pairs: :environment do
+		words = Word.where(level: [1])
+		rows = []
+		tones = words.group_by{|w| w.tone_class}
+		tones.each_pair do |tone, words|
+			if tone.size == 2
+				rows << [tone, words.size, words.map{|w| w.han}.join(',')]
+			end
+		end
+		table = Terminal::Table.new :rows => rows.sort_by{|w|w[0]}
+		puts table.to_s.gsub('|','')
+	end
 end
