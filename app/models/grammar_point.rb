@@ -58,31 +58,31 @@ class GrammarPoint < ActiveRecord::Base
 	def json_node(label, eng='', example='', url = '')
 		label = sanitize(label)
 		pairs =[['eng', eng], 
-			  	['label', label], 
-			  	['url', url], 
-				['example', example]]
+			  	  ['label', label], 
+			  	  ['url', url], 
+				    ['example', example]]
 		ApplicationController.helpers.springy_node(pairs)
 	end
 	def sanitize(str)
 		translations = [
-					  ['"'           , ''      ], 
-			          ['Subject'     , 'Subj.' ], 
-			          ['Questions'   , 'Quests.' ], 
-			          ['Question'    , 'Quest.' ], 
-			          ['Adjective'   , 'Adj.'  ], 
-			          ['Adjectives'  , 'Adjs.' ], 
-			          ['Adjective'   , 'Adj.'  ], 
-			          ['Adverbs'  	 , 'Advs.' ], 
-			          ['Adverb'      , 'Ads.' ], 
-			          ['Adjective'   , 'Adj.'  ], 
-			          ['Auxiliary'   , 'Aux.'  ], 
-			          ['Conjunctions', 'Conjs.'], 
-			          ['Conjunction' , 'Conj.' ], 
-			          ['Number'      ,'Num.'   ]
-        ]
+								['"'           , ''    ], 
+			          ['/'           , '|'   ], 
+			          ['Subject'     , 'S'   ], 
+			          ['Verb'        , 'V'   ], 
+			          ['Questions'   , 'Q'   ], 
+			          ['Adjective'   , 'Adj' ], 
+			          ['Adjectives'  , 'Adj' ], 
+			          ['Adverbs'  	 , 'Adv' ], 
+			          ['Adverb'      , 'Adv' ], 
+			          ['Auxiliary'   , 'Aux' ], 
+			          ['Conjunctions', 'Conj'], 
+			          ['Conjunction' , 'Conj'], 
+			          ['Number'      , 'Num' ]
+		]
 		translations.each do |pair|
 		  str.gsub!(pair[0], pair[1])
 		end
+		str = str.gsub("/ /","")
 		str
 	end
 end

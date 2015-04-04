@@ -1,6 +1,8 @@
 class StaticController < ApplicationController
 	def network
-		@words = Word.where(level: [1])
+		# TODO here we could inject the known_words
+		#      or the words that are currently being studied
+		@words = Word.where(level: [1, 2])
 		grammar_network_with_words(@words, 'A1')
 	end
 	def hsk_network(words)
@@ -94,7 +96,7 @@ class StaticController < ApplicationController
 
 		# nodes from words
 		words.each do |w|
-				pairs = [['label', w.han], ['eng', w.meaning]]
+				pairs = [['label', w.han], ['eng', w.meaning], ['example', w.han]]
 				all_nodes << ApplicationController.helpers.springy_node(pairs)
 		end
 		grammar_points.each do |gp| 
