@@ -1,13 +1,13 @@
 
 <div class="row"> 
-<div class="panel panel-warning">
+	<div class="panel panel-warning">
 		<div class="panel-heading">
-	Words you have learnt so far
+			Words you have learnt so far
 		</div>
-	<div class="panel-body">
-	<p><%= @mastered_words.join(", ") %></p>
-</div>
-</div>
+		<div class="panel-body">
+			<p><%= @mastered_words.join(", ") %></p>
+		</div>
+	</div>
 </div> 
 
 <div class="row"> 
@@ -23,20 +23,19 @@
 
 
 <div class="row"> 
-<div class="jumbotron ">
-	 <p class="text-muted">
-	 Enter pinyin for this word (HSK <%= @hsk_level %>)
-	 </p>
-	<h1><%= @word.han %></h1>
-	<%= form_for(@word, url: check_url(id: @word.id)) do |f| %>
-		<div class="field">
-			<%= text_field_tag :answer %>
-			<%= submit_tag 'Check', class: "btn btn-primary" %>
-		</div>
-	<% end %>
-	<%= button_to "play sound", play_url(id: @word.id)  %>
+	<div class="jumbotron ">
+		<p class="text-muted">
+		Enter pinyin for this word (HSK <%= @hsk_level %>)
+		</p>
+		<h1><%= @word.han %></h1>
+		<%= form_for(@word, url: check_url(id: @word.id)) do |f| %>
+			<div class="field">
+				<%= text_field_tag :answer %>
+				<%= submit_tag 'Check', class: "btn btn-primary" %>
+			</div>
+		<% end %>
+		<%= button_to "play sound", play_url(id: @word.id)  %>
 	</div>
-</div>
 </div> 
 
 
@@ -68,6 +67,7 @@
 				<tr>
 					<th>Point</th>
 					<th>Sentence</th>
+					<th>Pinyin</th>
 					<th>Meaning</th>
 					<th>Proportion known</th>
 				</tr>
@@ -79,6 +79,7 @@
 					<tr>
 						<td><%= example.grammar_point.pattern %></td>
 						<td><%= example.sentence %></td>
+						<td><%= example.pinyin %></td>
 						<td><%= example.translation %></td>
 						<td><%= proportion %></td>
 					</tr>
