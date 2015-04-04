@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get '/network_HSK1', to:'static#network_HSK1'
   get '/network_HSK2', to:'static#network_HSK2'
   get '/network_HSK3', to:'static#network_HSK3'
+  get '/tone_network', to:'static#tone_network'
 
   # this below looks quite ugly, cant we pass the level in the URL?
   get 'grammar_tree_A1', to:'static#grammar_tree_A1'

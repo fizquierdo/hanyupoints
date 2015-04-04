@@ -1,10 +1,15 @@
 class StaticController < ApplicationController
+	def tone_network
+		@word_levels = [1,2]
+		words = Word.where(level: @word_levels)
+		tone_pair_network(words)
+	end
 	def network
 		# TODO here we could inject the known_words
 		#      or the words that are currently being studied
 		@word_levels = [1,2]
-		@grammar_levels = ['A1']
 		words = Word.where(level: @word_levels)
+		@grammar_levels = ['A1']
 		grammar_network_with_words(words, @grammar_levels)
 	end
 	def hsk_network(words)
@@ -80,6 +85,32 @@ class StaticController < ApplicationController
 			new_nodes.each do |node|
 				all_nodes << node unless all_nodes.include?(node)
 			end
+		end
+	 	generate_jsonfile(all_nodes, all_edges)
+	end
+	def tone_pair_network(words) 
+		words = words.select{|w| w.tone_class.size == 2}
+		all_nodes = []
+		all_edges = []
+		# tone nodes and edges 
+		(1..4).to_a.each do |tone_start|
+			all_nodes << ApplicationController.helpers.springy_node([['label', tone_start.to_s]])
+			(1..5).to_a.each do |tone_end|
+				tone_pair = tone_start.to_s+tone_end.to_s
+				all_nodes << ApplicationController.helpers.springy_node([['label', tone_pair]])
+				all_edges << ApplicationController.helpers.springy_edge(tone_start.to_s, tone_pair, directional=false)
+			end
+		end
+		# word nodes
+		words.each do |w|
+				pairs = [['label', w.han], ['eng', w.meaning], ['example', w.han]]
+				all_nodes << ApplicationController.helpers.springy_node(pairs)
+		end
+		tones = words.group_by{|w| w.tone_class}
+		tones.each_pair do |tone, words|
+				words.each do |w|
+					all_edges << ApplicationController.helpers.springy_edge(tone.to_s, w.han, directional=false)
+				end
 		end
 	 	generate_jsonfile(all_nodes, all_edges)
 	end
