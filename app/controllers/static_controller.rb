@@ -1,4 +1,7 @@
 class StaticController < ApplicationController
+	before_action :authenticate_user!, :except => [:home, :grammar_tree_A1] 
+	def home
+	end
 	def tone_network
 		@word_levels = [1,2]
 		words = Word.where(level: @word_levels)

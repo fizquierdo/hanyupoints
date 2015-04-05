@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :words
   resources :grammar_points
   # Example of named route that can be invoked with purchase_url(id: product.id)
@@ -10,7 +11,8 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'words#index'
+  get '/home', to:'static#home', as: :home
+	root 'static#home'
 
   # specific networks
   get '/network', to:'static#network'

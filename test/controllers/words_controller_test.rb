@@ -3,6 +3,7 @@ require 'test_helper'
 class WordsControllerTest < ActionController::TestCase
   setup do
     @word = words(:one)
+		sign_in users(:one)
   end
 
   test "should get index" do

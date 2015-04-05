@@ -1,4 +1,5 @@
 class FlashcardsController < ApplicationController
+	before_action :authenticate_user!
 	include WordsHelper
 	def flashcards
 		# TODO determine the level we play at otherwise
