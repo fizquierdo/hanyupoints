@@ -21,19 +21,7 @@ class FlashcardsController < ApplicationController
 		@word = Word.find(params[:id])
 		@word.play
 		answer = params[:answer] || 'no_answer'
-		answer = norm(answer).to_s
-		expected = norm(@word.pinyin_num).to_s
-		if answer == expected
-			correct_points = 2
-			flash_data = {success: "Correct: #{@word.han}  #{@word.pinyin} (#{@word.meaning})"}
-		else
-			if strip_tone(answer) == strip_tone(expected)
-				correct_points = 1
-				flash_data = {warning: "Tone #{answer}, #{@word.han} should be #{@word.pinyin_num}  (#{@word.meaning})"}
-			else
-				flash_data = {danger:  "Wrong #{answer}, #{@word.han} should be #{@word.pinyin}  (#{@word.meaning})"}
-			end
-		end
+		correct_points, flash_data = @word.evaluate(answer)
 		save_guess(correct_points)
 		redirect_to flashcards_url, flash: flash_data
 	end
@@ -47,11 +35,5 @@ class FlashcardsController < ApplicationController
 			guess = guesses.first 
 			guess.update_attributes({attempts: guess.attempts + 1, correct: guess.correct + correct_points})
 		end
-	end
-	def strip_tone(str)
-		str.gsub(/[0-5]/, '')
-	end
-	def norm(str)
-		str.capitalize.gsub(' ','')
 	end
 end

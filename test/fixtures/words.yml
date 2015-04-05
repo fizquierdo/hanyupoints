@@ -11,3 +11,10 @@ two:
   pinyin: "ni3"
   pinyin_num: "ni3"
   meaning: "You"
+
+three:
+  han: "它它"
+  pinyin: "ta1ta2"
+  pinyin_num: "ta1ta2"
+  meaning: "I invented this"
+

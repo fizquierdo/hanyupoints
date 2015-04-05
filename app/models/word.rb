@@ -1,5 +1,6 @@
 class Word < ActiveRecord::Base
 	validates :han, uniqueness: true
+	validates :han, presence: true
 	validates :pinyin, presence: true
 	validates :pinyin_num, presence: true
 
@@ -27,17 +28,43 @@ class Word < ActiveRecord::Base
 	def present_in_patterns?(patterns)
 		patterns.select{|p| p.include? self.han}.size > 0
 	end
+	def to_correct_s
+			"#{self.han}  #{self.pinyin} (#{self.meaning})"
+	end
+	def to_wrong_s
+			"#{self.han} should be  #{self.pinyin_num} (#{self.meaning})"
+	end
+	def evaluate(answer)
+		answer = norm(answer.strip).to_s
+		expected = norm(self.pinyin_num).to_s
+		if answer == expected
+			correct_points = 2
+			flash_data = {success: "Correct: " + self.to_correct_s}
+		else
+			if strip_tone(answer) == strip_tone(expected)
+				correct_points = 1
+				flash_data = {warning: "Tone #{answer}, " + self.to_wrong_s}
+			else
+				correct_points = 0
+				flash_data = {danger:  "Wrong #{answer}, " + self.to_wrong_s}
+			end
+		end
+		[correct_points, flash_data]
+	end
 	def tone_class
-		# TODO test these cases (checchek levels 1-4)
-		# several tones     累    | lei4, lei3, lei2   | 4, 3, 2 |
-		# space in between  打篮球  | da3 lan2qiu2       | 3 22   
-		# ' char  然而   | ran2'er2         | 2'2   |
-		# TODO use this to evaluate correctness of pinyin?
 		pinyin = self.pinyin_num.strip
 		if pinyin.include? ','
 			pinyin = pinyin.split(',').first.strip 
 		end
 		pinyin.gsub(/[a-zA-Z]+/,"").gsub("'","").gsub(" ","")
+	end
+
+	private
+	def strip_tone(str)
+		str.gsub(/[0-5]/, '')
+	end
+	def norm(str)
+		str.capitalize.gsub(' ','')
 	end
 end
 
