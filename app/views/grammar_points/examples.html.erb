@@ -6,4 +6,4 @@
 <%= ' (' + @grammar_point.level.to_s + ' ' + @grammar_point.to_path.to_s  + ') '%>
 <%= link_to "GrammarWiki page", @grammar_point.link %>
 </p>
-<%= render 'examples' %>
+<%= render 'examples', verbose: false %>

@@ -1,24 +1,28 @@
 <table class="table">
   <thead>
     <tr>
-      <th>Num</th>
       <th>Sentence</th>
       <th>Pinyin</th>
       <th>Translation</th>
+    	<% if verbose %>
       <th>Grammar Point</th>
       <th>Level</th>
+      <th>Num</th>
+	<% end %>
     </tr>
   </thead>
 
   <tbody>
     <% @examples.each_with_index do |e, i| %>
       <tr class="active">
-        <td><%= i %></td>
         <td><%= e.sentence %></td>
         <td><%= e.pinyin %></td>
         <td><%= e.translation %></td>
+    	<% if verbose %>
         <td><%= e.grammar_point.pattern %></td>
         <td><%= e.grammar_point.level %></td>
+        <td><%= i %></td>
+	<% end %>
       </tr>
     <% end %>
   </tbody>
