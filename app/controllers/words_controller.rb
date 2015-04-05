@@ -7,7 +7,7 @@ class WordsController < ApplicationController
   def index
     #@words = Word.all
 		@hsk_levels =  ApplicationController.helpers.hsk_levels
-    @words = Word.where(level: @hsk_levels).sort_by{|w| w.success_rate}
+    @words = Word.where(level: @hsk_levels).sort_by{|w| w.success_rate(current_user.id)}
   end
 
   # GET /words/1

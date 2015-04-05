@@ -11,12 +11,13 @@
 
   <tbody>
     <% @words.each do |word| %>
+			<% rate = word.success_rate(current_user.id) %>
       <tr class="active">
         <td><%= word.han %></td>
         <td><%= word.pinyin %></td>
         <td><%= word.meaning %></td>
         <td><%= word.level %></td>
-        <td style="color:<%=ApplicationController.helpers.gradient(word.success_rate)%>"><%= word.success_rate.to_f.round(2) %></td>
+				<td style="color:<%=ApplicationController.helpers.gradient(rate)%>"><%= rate.to_f.round(2) %></td>
       </tr>
     <% end %>
   </tbody>

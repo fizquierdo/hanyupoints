@@ -3,8 +3,8 @@ class Word < ActiveRecord::Base
 	validates :pinyin, presence: true
 	validates :pinyin_num, presence: true
 
-	def to_node
-		labelcolor = ApplicationController.helpers.gradient(success_rate)
+	def to_node(logged_user_id)
+		labelcolor = ApplicationController.helpers.gradient(success_rate(logged_user_id))
 		pairs = [['label', self.han || ''], 
 			['eng', self.meaning || ''], 
 			['pinyin', self.pinyin || ''], 
@@ -12,11 +12,12 @@ class Word < ActiveRecord::Base
 			['example', self.han || '']]	
 		ApplicationController.helpers.springy_node(pairs)
 	end
-	def success_rate
-		rate = 0
-		if self.num_attempts > 0
-			total_possible_points = self.num_attempts.to_f * 2
-			rate = self.num_correct.to_f / total_possible_points
+	def success_rate(logged_user_id)
+		guesses = Guess.where(user_id: logged_user_id, word_id: self.id)
+		if guesses.empty?
+			rate = 0.0
+		else
+			rate = guesses.first.success_rate
 		end
 		rate
 	end

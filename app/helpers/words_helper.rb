@@ -1,5 +1,5 @@
 module WordsHelper
-	def self.mastered(words)
-		words.select{|w| w.success_rate > 0.7}.sort_by{|w| w.success_rate}.map{|w|w.han}
+	def self.mastered(words, current_user_id)
+		words.select{|w| w.success_rate(current_user_id) > 0.7}.sort_by{|w| w.success_rate(current_user_id)}.map{|w|w.han}
 	end
 end

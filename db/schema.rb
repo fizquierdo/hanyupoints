@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150405004425) do
+ActiveRecord::Schema.define(version: 20150405163315) do
 
   create_table "grammar_point_examples", force: true do |t|
     t.integer  "grammar_point_id"
@@ -37,6 +37,18 @@ ActiveRecord::Schema.define(version: 20150405004425) do
     t.string   "link"
   end
 
+  create_table "guesses", force: true do |t|
+    t.integer  "word_id"
+    t.integer  "user_id"
+    t.integer  "attempts"
+    t.integer  "correct"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "guesses", ["user_id"], name: "index_guesses_on_user_id"
+  add_index "guesses", ["word_id"], name: "index_guesses_on_word_id"
+
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -61,8 +73,6 @@ ActiveRecord::Schema.define(version: 20150405004425) do
     t.string   "meaning"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "num_attempts", default: 0, null: false
-    t.integer  "num_correct",  default: 0, null: false
     t.integer  "level"
     t.string   "pinyin_num"
   end

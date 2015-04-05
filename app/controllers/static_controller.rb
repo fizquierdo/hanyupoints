@@ -16,12 +16,12 @@ class StaticController < ApplicationController
 		grammar_network_with_words(words, @grammar_levels)
 	end
 	def hsk_network(words)
-		all_nodes = words.map{|w| w.to_node}
+		all_nodes = words.map{|w| w.to_node(current_user.id)}
 		all_edges = character_edges(words.map{|w| w.han})
 	 	generate_jsonfile(all_nodes, all_edges)
 	end
 	def hsk_grammar_network(words, grammar_points)
-		all_nodes = words.map{|w| w.to_node}
+		all_nodes = words.map{|w| w.to_node(current_user.id)}
 		all_edges = character_edges(words.map{|w| w.han})
 	 	generate_jsonfile(all_nodes, all_edges)
 	end
@@ -106,7 +106,7 @@ class StaticController < ApplicationController
 		end
 		# word nodes
 		words.each do |w|
-				all_nodes << w.to_node
+				all_nodes << w.to_node(current_user.id)
 		end
 		tones = words.group_by{|w| w.tone_class}
 		tones.each_pair do |tone, words|
@@ -131,7 +131,7 @@ class StaticController < ApplicationController
 
 		# nodes from words
 		words.each do |w|
-				all_nodes << w.to_node
+				all_nodes << w.to_node(current_user.id)
 		end
 		grammar_points.each do |gp| 
 			# nodes grammar points
