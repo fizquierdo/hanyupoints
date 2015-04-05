@@ -6,6 +6,7 @@ class FlashcardsController < ApplicationController
 		@hsk_levels =  ApplicationController.helpers.hsk_levels
 		words = Word.where(level: @hsk_levels)
 		@word = words.sort_by{|w| w.success_rate(current_user.id)}.first
+		puts @word.id
 		@mastered_words = WordsHelper.mastered(words, current_user.id)
 		@relevant_grammar_points = GrammarPointsHelper.grammar_points_with(@word.han)
 		@understandable_examples = GrammarPointsHelper.understandable_with(@relevant_grammar_points, @mastered_words)
@@ -17,7 +18,6 @@ class FlashcardsController < ApplicationController
 		redirect_to flashcards_url
 	end
 	def check
-		# TODO this does not act on the word model, but on the guess!
 		@word = Word.find(params[:id])
 		@word.play
 		answer = params[:answer] || 'no_answer'

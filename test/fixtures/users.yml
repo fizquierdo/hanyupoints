@@ -5,9 +5,12 @@
 # below each fixture, per the syntax in the comments below
 #
 one: 
-  email: me@home.com
-#   password: this
+  email: user1@test.eu
+  #encrypted_password: abcdef1
+  #email: mer@home.com
+  encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  sign_in_count: 1
 #
-two:
-  email: you@home.com
-#   password: that
+#two:
+#  email: you@home.com
+#  encrypted_password: <%= Devise.bcrypt(User, 'password') %>

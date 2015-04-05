@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class WordsControllerTest < ActionController::TestCase
+	include Devise::TestHelpers
   setup do
     @word = words(:one)
 		sign_in users(:one)
