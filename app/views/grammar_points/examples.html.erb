@@ -3,29 +3,7 @@
 </h1>
 <p>
 <%= @grammar_point.eng %>
+<%= ' (' + @grammar_point.level.to_s + ' ' + @grammar_point.to_path.to_s  + ') '%>
+<%= link_to "GrammarWiki page", @grammar_point.link %>
 </p>
-<p>
-<%= @grammar_point.level.to_s + ' ' + @grammar_point.to_path.to_s %>
-</p>
-<p><%= link_to "AllSet page", @grammar_point.link %></p>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Sentence</th>
-      <th>Pinyin</th>
-      <th>Translation</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @examples.each do |e| %>
-      <tr>
-        <td><%= e.sentence %></td>
-        <td><%= e.pinyin %></td>
-        <td><%= e.translation %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
+<%= render 'examples' %>

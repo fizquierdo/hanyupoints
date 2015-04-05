@@ -1,30 +1,4 @@
 <h1>
 <%= @examples.size %> example sentences
 </h1>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Num</th>
-      <th>Sentence</th>
-      <th>Pinyin</th>
-      <th>Translation</th>
-      <th>Grammar Point</th>
-      <th>Level</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @examples.each_with_index do |e, i| %>
-      <tr>
-        <td><%= i %></td>
-        <td><%= e.sentence %></td>
-        <td><%= e.pinyin %></td>
-        <td><%= e.translation %></td>
-        <td><%= e.grammar_point.pattern %></td>
-        <td><%= e.grammar_point.level %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
+<%= render 'examples' %>
