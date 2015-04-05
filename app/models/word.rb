@@ -1,7 +1,7 @@
 class Word < ActiveRecord::Base
 	validates :han, uniqueness: true
-	validates :pinyin_num, presence: true
 	validates :pinyin, presence: true
+	validates :pinyin_num, presence: true
 
 	def to_node
 		labelcolor = ApplicationController.helpers.gradient(success_rate)

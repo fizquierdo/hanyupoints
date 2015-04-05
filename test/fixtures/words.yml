@@ -3,9 +3,11 @@
 one:
   han: "我"
   pinyin: "wo3"
+  pinyin_num: "wo3"
   meaning: "Me, I"
 
 two:
   han: "你"
   pinyin: "ni3"
+  pinyin_num: "ni3"
   meaning: "You"

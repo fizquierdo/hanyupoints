@@ -18,16 +18,17 @@ class WordsControllerTest < ActionController::TestCase
 
   test "should not create word if word exists" do
     assert_no_difference('Word.count') do
-      post :create, word: { han: @word.han, meaning: @word.meaning, pinyin: @word.pinyin }
+			existing_word = { han: @word.han, meaning: @word.meaning, pinyin: @word.pinyin, pinyin_num: @word.pinyin}
+      post :create, word: existing_word
     end
 
   end
 
   test "should create word if hanzi is new" do
     assert_difference('Word.count') do
-      post :create, word: { han: '她', meaning: 'she', pinyin: 'ta1' }
+			wo = { han: '她', pinyin: 'ta1', pinyin_num: 'ta1'}
+      post :create, word: wo
     end
-
     assert_redirected_to word_path(assigns(:word))
   end
 
