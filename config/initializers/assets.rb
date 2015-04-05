@@ -5,4 +5,4 @@ Rails.application.config.assets.version = '1.0'
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-Rails.application.config.assets.precompile += %w( springy.js springyui.js jquery.min.js .jpg)
+Rails.application.config.assets.precompile += %w( springy.js springyui.js jquery.min.js dragon_3.jpg)
