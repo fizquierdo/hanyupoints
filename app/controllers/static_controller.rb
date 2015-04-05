@@ -26,7 +26,6 @@ class StaticController < ApplicationController
 	 	generate_jsonfile(all_nodes, all_edges)
 	end
 
-	# TODO metaprogramming?
 	def grammar_tree_A1
 	 	grammar_tree('A1')
 	end
