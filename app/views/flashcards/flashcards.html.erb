@@ -25,7 +25,7 @@
 <div class="row"> 
 	<div class="jumbotron ">
 		<p class="text-muted">
-		Enter pinyin for this word (HSK <%= @hsk_level %>)
+		Enter pinyin for this word (HSK <%= @word.level %>)
 		</p>
 		<h1><%= @word.han %></h1>
 		<%= form_for(@word, url: check_url(id: @word.id)) do |f| %>

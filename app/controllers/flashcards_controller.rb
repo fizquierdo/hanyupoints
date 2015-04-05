@@ -2,9 +2,9 @@ class FlashcardsController < ApplicationController
 	before_action :authenticate_user!
 	include WordsHelper
 	def flashcards
-		# TODO determine the level we play at otherwise
-		@hsk_level = 1
-		words = Word.where(level: @hsk_level)
+		# TODO determine the level we are learning according to the user
+		@hsk_levels =  ApplicationController.helpers.hsk_levels
+		words = Word.where(level: @hsk_levels)
 		@word = words.sort_by{|w| w.success_rate}.first
 		@mastered_words = WordsHelper.mastered(words)
 		@relevant_grammar_points = GrammarPointsHelper.grammar_points_with(@word.han)

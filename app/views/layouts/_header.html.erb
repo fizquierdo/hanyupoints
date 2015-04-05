@@ -1,29 +1,47 @@
 <header class="navbar">
-<div class="navbar-inner">
-	<div class="container">
-		<nav>
-		<ul class="nav navbar-nav">
-			<li><%= link_to "Home", root_path %></li>
-			<li><%= link_to "Words", words_path %></li>
-			<li><%= link_to "Grammar tree", grammar_tree_A1_path %></li>
-			<li><%= link_to "Grammar points", grammar_points_path %></li>
-			<li><%= link_to "Flashcards", flashcards_path %></li>
-			<li><%= link_to "Network", network_path %></li>
-			<li><%= link_to "HSK 1", network_HSK1_path %></li>
-			<li><%= link_to "HSK 2", network_HSK2_path %></li>
-			<li><%= link_to "Tones", tone_network_path %></li>
-		</ul>
-		<ul class="nav navbar-text pull-right">
-			<% if user_signed_in? %>
-				Logged in as <strong><%= current_user.email %></strong>.
-				<%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
-				<%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
-			<% else %>
-				<%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
-				<%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
-			<% end %>
-		</ul>
-		</nav>
+<div class="navbar-default">
+	<div class="container-fluid">
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><%= link_to "Home", root_path %></li>
+				<li><%= link_to "Flashcards", flashcards_path %></li>
+				<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Networks<span class="caret"></span></a>
+				<ul class="dropdown-menu" role="menu">
+					<li><%= link_to "Grammar tree A1", grammar_tree_A1_path %></li>
+					<li><%= link_to "Grammar tree A2", grammar_tree_A2_path %></li>
+					<li class="divider"></li>
+					<li><%= link_to "Grammar + Words", network_path %></li>
+					<li class="divider"></li>
+					<li><%= link_to "Tone Pairs", tone_network_path %></li>
+					<li class="divider"></li>
+					<li><%= link_to "Vocab HSK 1", network_HSK1_path %></li>
+					<li><%= link_to "Vocab HSK 2", network_HSK2_path %></li>
+					<li><%= link_to "Vocab HSK 3", network_HSK3_path %></li>
+				</ul>
+				</li>
+				<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Lists<span class="caret"></span></a>
+				<ul class="dropdown-menu" role="menu">
+					<li><%= link_to "Grammar Points", grammar_points_path %></li>
+					<li class="divider"></li>
+					<li><%= link_to "Vocab on Progress", words_path %></li>
+				</ul>
+				</li>
+			</ul>
+		</div>
+		<div class="navbar">
+			<ul class="nav pull-right">
+				<% if user_signed_in? %>
+					Logged in as <strong><%= current_user.email %></strong>.
+					<%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
+					<%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+				<% else %>
+					<%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
+					<%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+				<% end %>
+			</ul>
+		</div>
 	</div>
 </div>
 </header>

@@ -1,4 +1,8 @@
 module ApplicationHelper
+	# determine the level at which the user is playing
+	def hsk_levels
+		[1]
+	end
 	# these formats are required by springy
 	def springy_node(pairs)
 		'{' + pairs.map{|w| w[0].to_s+':"'+w[1]+'"'}.join(',') + '},'
