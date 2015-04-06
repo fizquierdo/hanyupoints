@@ -82,5 +82,4 @@ class WordTest < ActiveSupport::TestCase
 	   assert_equal('22', w.tone_class)
 	 end
 
-
 end
