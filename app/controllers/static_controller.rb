@@ -10,8 +10,6 @@ class StaticController < ApplicationController
 		tone_pair_network(words)
 	end
 	def network
-		# TODO here we could inject the known_words
-		#      or the words that are currently being studied
 		@word_levels = [1,2]
 		words = Word.where(level: @word_levels)
 		@grammar_levels = ['A1']
