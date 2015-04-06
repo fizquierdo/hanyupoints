@@ -45,7 +45,7 @@
 					<tr class="info">
 						<td><%= gp.level %></td>
 						<td><%= gp.pattern %></td>
-						<td><%= gp.eng %></td>
+						<td><%= link_to gp.eng, examples_url(id:gp.id) %></td>
 					</tr>
 				<% end %>
 			</tbody>
