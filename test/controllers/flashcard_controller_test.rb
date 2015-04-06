@@ -14,10 +14,10 @@ class FlashcardsControllerTest < ActionController::TestCase
 		assert_redirected_to user_session_path
   end
 
-	# TODO why this does not work?
-	# test at the integration level
+	## TODO why this does not work?
+	## test at the integration level
   #test "should get flashcard if logged in" do
-	#	sign_in :one
+	#	sign_in users(:one)
   #  get :flashcards
   #  assert_response :success
   #end

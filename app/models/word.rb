@@ -38,13 +38,13 @@ class Word < ActiveRecord::Base
 			"#{self.han} should be  #{self.pinyin_num} (#{self.meaning})"
 	end
 	def evaluate(answer)
-		answer = norm(answer.strip).to_s
-		expected = norm(self.pinyin_num).to_s
-		if answer == expected
+		n_answer = norm(answer.strip).to_s
+		n_expected = norm(self.pinyin_num).to_s
+		if n_answer == n_expected
 			correct_points = 2
 			flash_data = {success: "Correct: " + self.to_correct_s}
 		else
-			if strip_tone(answer) == strip_tone(expected)
+			if strip_tone(n_answer) == strip_tone(n_expected)
 				correct_points = 1
 				flash_data = {warning: "Tone #{answer}, " + self.to_wrong_s}
 			else
@@ -67,7 +67,7 @@ class Word < ActiveRecord::Base
 		str.gsub(/[0-5]/, '')
 	end
 	def norm(str)
-		str.capitalize.gsub(' ','')
+		str.capitalize.gsub(' ','').gsub("'","")
 	end
 	def node_pairs
 		[
