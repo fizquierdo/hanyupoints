@@ -2,6 +2,7 @@
 <%=javascript_include_tag "springy" %>
 <%=javascript_include_tag "springyui" %>
 
+<% if canvas_size == 'big' %>
 <table class="table">
   <thead>
     <tr>
@@ -21,6 +22,7 @@
     </tr>
   </tbody>
 </table>
+<% end %>
 
 <script>
 $.getJSON("data.json", function(json) {
@@ -41,6 +43,13 @@ $.getJSON("data.json", function(json) {
 
 });
 </script>
-
-
-<canvas id="springydemo" width="940" height="780" />
+<% if canvas_size == 'small' %>
+	</br>
+	</br>
+<center>
+	<canvas id="springydemo" width="400" height="250" />
+</center>
+	</br>
+<% else %>
+	<canvas id="springydemo" width="940" height="780" />
+<% end %>

@@ -2,4 +2,4 @@
 <p> Network HSK 1 with <%= @words.size %> words </p>
 <%= render 'scale' %>
 </div >
-<%= render 'network' %>
+<%= render partial: 'network', locals: {canvas_size: 'big'} %>

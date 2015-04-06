@@ -4,4 +4,4 @@ Word Level HSK <%= @word_levels %>, grammar points from  <%= @grammar_levels %>
 	</h5>
 <%= render 'scale' %>
 </div>
-<%= render 'network' %>
+<%= render partial: 'network', locals: {canvas_size: 'big'} %>

@@ -1,4 +1,4 @@
 <h5>
 Level <%= @level %>:  <%= @num_points %> grammar points
 </h5>
-<%= render 'network' %>
+<%= render partial: 'network', locals: {canvas_size: 'big'} %>
