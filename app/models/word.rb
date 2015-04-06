@@ -4,13 +4,13 @@ class Word < ActiveRecord::Base
 	validates :pinyin, presence: true
 	validates :pinyin_num, presence: true
 
+	def to_colorless_node
+		ApplicationController.helpers.springy_node(node_pairs)
+	end
 	def to_node(logged_user_id)
 		labelcolor = ApplicationController.helpers.gradient(success_rate(logged_user_id))
-		pairs = [['label', self.han || ''], 
-			['eng', self.meaning || ''], 
-			['pinyin', self.pinyin || ''], 
-			['labelcolor', labelcolor], 
-			['example', self.han || '']]	
+		pairs = node_pairs
+		pairs << ['labelcolor', labelcolor]
 		ApplicationController.helpers.springy_node(pairs)
 	end
 	def success_rate(logged_user_id)
@@ -68,6 +68,14 @@ class Word < ActiveRecord::Base
 	end
 	def norm(str)
 		str.capitalize.gsub(' ','')
+	end
+	def node_pairs
+		[
+			['label', self.han || ''], 
+			['eng', self.meaning || ''], 
+			['pinyin', self.pinyin || ''], 
+			['example', self.han || '']
+		]	
 	end
 end
 

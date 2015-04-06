@@ -2,7 +2,7 @@ class StaticController < ApplicationController
 	before_action :authenticate_user!, :except => [:home, :grammar_tree_A1] 
 	def home
 		words = Word.where(level: 1).select{|w| w.han.include? '有'}
-		grammar_network_with_words(words, 'A1')
+		grammar_network_with_words(words, 'A1', user_color = false)
 	end
 	def tone_network
 		@word_levels = [1,2]
@@ -117,7 +117,7 @@ class StaticController < ApplicationController
 		end
 	 	generate_jsonfile(all_nodes, all_edges)
 	end
-	def grammar_network_with_words(words, level)
+	def grammar_network_with_words(words, level, user_color = true)
 		all_edges = []
 		all_nodes = []
 		# use grammar points we can understand only
@@ -132,7 +132,11 @@ class StaticController < ApplicationController
 
 		# nodes from words
 		words.each do |w|
-				all_nodes << w.to_node(current_user.id)
+				if user_color
+					all_nodes << w.to_node(current_user.id)
+				else
+					all_nodes << w.to_colorless_node
+				end
 		end
 		grammar_points.each do |gp| 
 			# nodes grammar points

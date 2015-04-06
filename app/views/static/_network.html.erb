@@ -3,53 +3,54 @@
 <%=javascript_include_tag "springyui" %>
 
 <% if canvas_size == 'big' %>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Meaning</th>
-      <th>Example</th>
-      <th>Pinyin</th>
-      <th>More examples</th>
-    </tr>
-  </thead>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Meaning</th>
+				<th>Example</th>
+				<th>Pinyin</th>
+				<th>More examples</th>
+			</tr>
+		</thead>
 
-  <tbody>
-    <tr>
-      <td id="eng"></td>
-      <td id="example"></td>
-      <td id="pinyin"></td>
-      <td><%= link_to "Show more", root_url, :id => "elink" %><td>
-    </tr>
-  </tbody>
-</table>
+		<tbody>
+			<tr>
+				<td id="eng"></td>
+				<td id="example"></td>
+				<td id="pinyin"></td>
+				<td><%= link_to "Show more", root_url, :id => "elink" %></td>
+			</tr>
+		</tbody>
+	</table>
 <% end %>
 
 <script>
-$.getJSON("data.json", function(json) {
-	jQuery(function(){
-	  var graph = new Springy.Graph();
-	  graph.loadGenericJSON(json);
-	
-	  var springy = jQuery('#springydemo').springy({
-	    graph: graph,
-        nodeSelected: function(node){
-		  document.getElementById("eng").innerHTML = node.data.eng;
-		  document.getElementById("example").innerHTML = node.data.example;
-		  document.getElementById("pinyin").innerHTML = node.data.pinyin;
-		  $("#elink").attr("href", node.data.url);
-        }
-	  });
-	});
+	$.getJSON("data.json", function(json) {
+		jQuery(function(){
+			var graph = new Springy.Graph();
+			graph.loadGenericJSON(json);
 
-});
+			var springy = jQuery('#springydemo').springy({
+				graph: graph,
+				nodeSelected: function(node){
+					document.getElementById("eng").innerHTML = node.data.eng;
+					document.getElementById("example").innerHTML = node.data.example;
+					document.getElementById("pinyin").innerHTML = node.data.pinyin;
+					$("#elink").attr("href", node.data.url);
+				}
+			});
+		});
+
+	});
 </script>
+
 <% if canvas_size == 'small' %>
-	</br>
-	</br>
-<center>
-	<canvas id="springydemo" width="400" height="250" />
-</center>
-	</br>
+	<br>
+	<br>
+	<center>
+		<canvas id="springydemo" width="400" height="250" />
+	</center>
+	<br>
 <% else %>
 	<canvas id="springydemo" width="940" height="780" />
 <% end %>
