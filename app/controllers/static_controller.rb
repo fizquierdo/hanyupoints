@@ -18,9 +18,11 @@ class StaticController < ApplicationController
 		grammar_network_with_words(words, @grammar_levels)
 	end
 	def hsk_network(words)
-		all_nodes = words.map{|w| w.to_node(current_user.id)}
-		all_edges = character_edges(words.map{|w| w.han})
-	 	generate_jsonfile(all_nodes, all_edges)
+		nodes = words.map{|w| w.to_node(current_user.id)}
+		#all_edges = character_edges(words.map{|w| w.han})
+		edges, new_nodes = character_edges_and_nodes(words.map{|w| w.han})
+		nodes += new_nodes
+	 	generate_jsonfile(nodes, edges)
 	end
 	def hsk_grammar_network(words, grammar_points)
 		all_nodes = words.map{|w| w.to_node(current_user.id)}
@@ -56,12 +58,10 @@ class StaticController < ApplicationController
 
 	private
 	def character_edges(words)
-		chars = []
-		words.each do |w|
-			w.split('').each do |ch|
-				chars << ch unless chars.include? ch 
-			end
-		end
+		# words are han strings
+		# List the alphabet of character in the set of words
+		# An edge connects a single-character word with another (longer) word
+		chars = WordsHelper.character_alphabet(words)
 		edges = []
 		chars.each do |ch|
 			words.select{|w| w.include?(ch) and w.size > 1}.each do |w|
@@ -71,6 +71,37 @@ class StaticController < ApplicationController
 		end
 		edges
 	end
+
+	def character_edges_and_nodes(words)
+		# words are han strings
+		# like def character_edges, but if we prefer to insert colorless nodes
+		# nodes without colors are added to cluster together words sharing characters
+		chars = WordsHelper.character_alphabet(words)
+		edges = []
+	  nodes = []
+		chars.each do |ch|
+			words_with_ch = words.select{|w| w.include? ch and w != ch}
+			unless words_with_ch.empty?
+				if words.include? ch 
+					# single-ch word -> word
+					words_with_ch.each do |w|
+						edges << ApplicationController.helpers.springy_edge(ch, w, directional=true)
+					end
+				else
+					if words_with_ch.size > 1
+						# these characters are not words themselemves, but will cluster other words
+						nodes << ApplicationController.helpers.springy_node([['label', ch]])
+						words_with_ch.each do |w|
+							edges << ApplicationController.helpers.springy_edge(ch, w, directional=false)
+						end
+					end
+				end
+			end
+		end
+		[edges, nodes]
+	end
+
+
 	def grammar_tree(level)
 		# Avoid representing twice the same edge
 		all_edges = []
@@ -148,6 +179,7 @@ class StaticController < ApplicationController
 		end
 	 	generate_jsonfile(all_nodes, all_edges)
 	end
+
 	def generate_jsonfile(all_nodes, all_edges)
 		# manually generate the springy-formatted json file
 		File.open(File.join(Rails.root, "public", "data.json"), 'w') do |f|

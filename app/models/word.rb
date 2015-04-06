@@ -18,7 +18,12 @@ class Word < ActiveRecord::Base
 		if guesses.empty?
 			rate = 0.0
 		else
-			rate = guesses.first.success_rate
+			user_guess = guesses.first
+			rate = user_guess.success_rate
+			# penalize the first guess to avoid immediate high rates
+			if user_guess.attempts <= 2
+				rate = rate.to_f / 2.0
+			end
 		end
 		rate
 	end

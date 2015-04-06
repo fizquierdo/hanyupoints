@@ -73,4 +73,26 @@ namespace :data do
 		table = Terminal::Table.new :rows => rows.sort_by{|w|w[0]}
 		puts table.to_s.gsub('|','')
 	end
+
+	desc "Shows edges"
+	task edges: :environment do
+		words = Word.where(level: [1]).map{|w| w.han}
+		rows = []
+		chars = WordsHelper.character_alphabet(words)
+		chars.each do |ch|
+			words_with_ch = words.select{|w| w.include? ch and w != ch}
+			unless words_with_ch.empty?
+				if words.include? ch 
+					rows << [ch, words_with_ch.to_s, 'ch'] 
+				else
+					if words_with_ch.size > 1
+						# these characters are not words themselemves, but will cluster other words
+						rows << [ch, words_with_ch.to_s, 'link_ch'] 
+					end
+				end
+			end
+		end
+		table = Terminal::Table.new :rows => rows
+		puts table.to_s#.gsub('|','')
+	end
 end
