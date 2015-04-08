@@ -19,7 +19,7 @@
 		<h1><%= @word.han %></h1>
 		<%= form_for(@word, url: check_url(id: @word.id)) do |f| %>
 			<div class="field">
-				<%= text_field_tag :answer %>
+				<%= text_field_tag :answer, '', :autocomplete => :off %>
 				<%= submit_tag 'Check', class: "btn btn-primary" %>
 			</div>
 		<% end %>
