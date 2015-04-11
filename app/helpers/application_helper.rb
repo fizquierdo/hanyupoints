@@ -4,6 +4,23 @@ module ApplicationHelper
 		[1]
 	end
 	# these formats are required by springy
+	def generate_jsonfile(all_nodes, all_edges, filename="data.json")
+		# manually generate the springy-formatted json file
+		File.open(File.join(Rails.root, "public", filename), 'w') do |f|
+			f.puts "{"
+			f.puts '"nodes":['
+			all_nodes.each do |n|
+				f.puts n
+			end
+			f.puts '],'
+			f.puts '"edges":['
+			all_edges.each do |e|
+				f.puts e
+			end
+			f.puts ']'
+			f.puts "}"
+		end
+	end
 	def springy_node(pairs)
 		'{' + pairs.map{|w| w[0].to_s+':"'+w[1]+'"'}.join(',') + '},'
 	end

@@ -9,6 +9,14 @@ class StaticController < ApplicationController
 		words = Word.where(level: @word_levels)
 		tone_pair_network(words)
 	end
+	def radicals
+		# update the data.json file
+		@level = 1 # default in the rake task 
+		filename = "radicals_hsk#{@level}.json"
+		src  = File.join(Rails.root, "public", filename)
+		dest = File.join(Rails.root, "public", "data.json")
+		FileUtils.cp(src, dest)
+	end
 	def network
 		@word_levels = [1,2]
 		words = Word.where(level: @word_levels)
@@ -20,12 +28,12 @@ class StaticController < ApplicationController
 		#all_edges = character_edges(words.map{|w| w.han})
 		edges, new_nodes = character_edges_and_nodes(words.map{|w| w.han})
 		nodes += new_nodes
-	 	generate_jsonfile(nodes, edges)
+	 	ApplicationController.helpers.generate_jsonfile(nodes, edges)
 	end
 	def hsk_grammar_network(words, grammar_points)
 		all_nodes = words.map{|w| w.to_node(current_user.id)}
 		all_edges = character_edges(words.map{|w| w.han})
-	 	generate_jsonfile(all_nodes, all_edges)
+	 	ApplicationController.helpers.generate_jsonfile(all_nodes, all_edges)
 	end
 
 	def grammar_tree_A1
@@ -119,7 +127,7 @@ class StaticController < ApplicationController
 				all_nodes << node unless all_nodes.include?(node)
 			end
 		end
-	 	generate_jsonfile(all_nodes, all_edges)
+	 	ApplicationController.helpers.generate_jsonfile(all_nodes, all_edges)
 	end
 	def tone_pair_network(words) 
 		words = words.select{|w| w.tone_class.size == 2}
@@ -144,7 +152,7 @@ class StaticController < ApplicationController
 					all_edges << ApplicationController.helpers.springy_edge(tone.to_s, w.han, directional=false)
 				end
 		end
-	 	generate_jsonfile(all_nodes, all_edges)
+	 	ApplicationController.helpers.generate_jsonfile(all_nodes, all_edges)
 	end
 	def grammar_network_with_words(words, level, user_color = true)
 		all_edges = []
@@ -175,24 +183,7 @@ class StaticController < ApplicationController
 				all_edges << ApplicationController.helpers.springy_edge(w.han, gp.short_pattern, directional=true)
 			end
 		end
-	 	generate_jsonfile(all_nodes, all_edges)
+	 	ApplicationController.helpers.generate_jsonfile(all_nodes, all_edges)
 	end
 
-	def generate_jsonfile(all_nodes, all_edges)
-		# manually generate the springy-formatted json file
-		File.open(File.join(Rails.root, "public", "data.json"), 'w') do |f|
-			f.puts "{"
-			f.puts '"nodes":['
-			all_nodes.each do |n|
-				f.puts n
-			end
-			f.puts '],'
-			f.puts '"edges":['
-			all_edges.each do |e|
-				f.puts e
-			end
-			f.puts ']'
-			f.puts "}"
-		end
-	end
 end

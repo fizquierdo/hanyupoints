@@ -24,7 +24,8 @@ namespace :da do
 	desc "radical decomp"
 	task craft_radicals: :environment do
 		#char =	'说'
-		characters = Word.where(level: 1)\
+		level = 1
+		characters = Word.where(level: level)\
 										 .map{|w| w.han}\
 										 .select{|w| w.split('').size == 1}
 		radicals = {}
@@ -44,5 +45,13 @@ namespace :da do
 		radicals.each_pair do |radical, chars|
 			puts radical + "\t" +  chars.join(' | ')
 		end
+		# build a network
+		all_edges = []
+		all_nodes = []
+		characters.each do |char|
+			all_nodes << ApplicationController.helpers.springy_node([['label', char]])
+		end
+		ApplicationController.helpers.generate_jsonfile(all_nodes, all_edges, "radicals_hsk#{level}.json")
 	end
+
 end
