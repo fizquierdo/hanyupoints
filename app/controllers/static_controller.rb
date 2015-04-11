@@ -11,8 +11,8 @@ class StaticController < ApplicationController
 	end
 	def radicals
 		# update the data.json file
-		@level = 1 # default in the rake task 
-		filename = "radicals_hsk#{@level}.json"
+		@level = ApplicationController.helpers.radicals_hsk_levels
+		filename = "radicals_hsk.json"
 		src  = File.join(Rails.root, "public", filename)
 		dest = File.join(Rails.root, "public", "data.json")
 		FileUtils.cp(src, dest)

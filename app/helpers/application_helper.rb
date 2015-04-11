@@ -1,7 +1,12 @@
 module ApplicationHelper
 	# determine the level at which the user is playing
 	def hsk_levels
+		# levels for work-in-progress
 		[1]
+	end
+	def radicals_hsk_levels
+		# levels for the radical-word network
+		[1,2]
 	end
 	# these formats are required by springy
 	def generate_jsonfile(all_nodes, all_edges, filename="data.json")

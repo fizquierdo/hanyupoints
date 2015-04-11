@@ -7,7 +7,13 @@ class Word < ActiveRecord::Base
 	def to_colorless_node
 		ApplicationController.helpers.springy_node(node_pairs)
 	end
+	def to_red_node
+		pairs = node_pairs
+		pairs << ['labelcolor', '#ff5533']
+		ApplicationController.helpers.springy_node(pairs)
+	end
 	def to_node(logged_user_id)
+		# set the color depending on the user's knowledge
 		labelcolor = ApplicationController.helpers.gradient(success_rate(logged_user_id))
 		pairs = node_pairs
 		pairs << ['labelcolor', labelcolor]
