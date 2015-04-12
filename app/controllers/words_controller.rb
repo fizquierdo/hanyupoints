@@ -6,7 +6,7 @@ class WordsController < ApplicationController
   # GET /words.json
   def index
     #@words = Word.all
-		@hsk_levels =  ApplicationController.helpers.hsk_levels
+		@hsk_levels =  ApplicationController.helpers.user_hsk_levels(current_user.id)
     @words = Word.where(level: @hsk_levels).sort_by{|w| w.success_rate(current_user.id)}
   end
 
