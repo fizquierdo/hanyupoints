@@ -2,13 +2,12 @@ class FlashcardsController < ApplicationController
 	before_action :authenticate_user!
 	include WordsHelper
 	def flashcards
-		# TODO from user settings hsk_levels
-		@hsk_levels =  ApplicationController.helpers.hsk_levels
+		@hsk_levels =  ApplicationController.helpers.user_hsk_levels(current_user.id)
+		@grammar_levels =  ApplicationController.helpers.user_grammar_levels(current_user.id)
 		words = Word.where(level: @hsk_levels)
 		@word = words.sort_by{|w| w.success_rate(current_user.id)}.first
 		@mastered_words = WordsHelper.mastered(words, current_user.id)
-		# TODO from user settings grammar_levels
-		@relevant_grammar_points = GrammarPointsHelper.grammar_points_with(@word.han)
+		@relevant_grammar_points = GrammarPointsHelper.grammar_points_with(@word.han, @grammar_levels)
 		@understandable_examples = GrammarPointsHelper.understandable_with(@relevant_grammar_points, @mastered_words)
 		@word.update_sound_file
 	end

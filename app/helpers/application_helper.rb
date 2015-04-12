@@ -4,6 +4,24 @@ module ApplicationHelper
 		# levels for work-in-progress
 		[1]
 	end
+	def user_hsk_levels(user_id)
+		setting = Setting.find_by(user_id: user_id)
+		if setting.nil?
+			levels = self.hsk_levels
+		else
+			levels = setting.to_hsk_levels
+		end
+		levels 
+	end
+	def user_grammar_levels(user_id)
+		setting = Setting.find_by(user_id: user_id)
+		if setting.nil?
+			levels = ['A1', 'A2']
+		else
+			levels = setting.to_grammar_levels
+		end
+		levels 
+	end
 	def radicals_hsk_levels
 		# levels for the radical-word network
 		[1,2]
