@@ -2,6 +2,22 @@ class SettingsController < ApplicationController
 	before_action :authenticate_user! 
 	# TODO you should only be able to change your own settings
 
+	def index
+		settings = Setting.where(user_id: current_user.id)
+		if settings.empty?
+			# Create a default setting (should be done when user is created but dont want to mess with devise)
+			setting = Setting.create({user_id: current_user.id})
+			setting_id = setting.id
+		else
+			# there must be a setting for this user already, we enforce 1 setting per user so only one possible record
+			setting_id = settings.first.id
+		end
+
+		params[:id] = setting_id
+		set_setting
+		redirect_to @setting
+	end
+
   def show
 		set_setting
   end
