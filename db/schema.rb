@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150405163315) do
+ActiveRecord::Schema.define(version: 20150412192417) do
 
   create_table "grammar_point_examples", force: true do |t|
     t.integer  "grammar_point_id"
@@ -48,6 +48,16 @@ ActiveRecord::Schema.define(version: 20150405163315) do
 
   add_index "guesses", ["user_id"], name: "index_guesses_on_user_id"
   add_index "guesses", ["word_id"], name: "index_guesses_on_word_id"
+
+  create_table "settings", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "hsk_level",     default: 1, null: false
+    t.integer  "grammar_level", default: 1, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "settings", ["user_id"], name: "index_settings_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

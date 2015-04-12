@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   resources :words
   resources :grammar_points
+  resources :settings
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
   get 'grammar_points/:id/examples' => 'grammar_points#examples', as: :examples

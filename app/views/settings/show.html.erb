@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>HSK level (1-6):</strong>
+  <%= @setting.hsk_level %>
+</p>
+
+<p>
+  <strong>Grammar level (1-4):</strong>
+  <%= @setting.grammar_level %>
+</p>
+
+<%= link_to 'Edit', edit_setting_path(@setting) %> 
