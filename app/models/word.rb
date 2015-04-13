@@ -50,7 +50,7 @@ class Word < ActiveRecord::Base
 	end
 	def evaluate(answer)
 		n_answer = norm(answer.strip).to_s
-		n_expected = norm(self.pinyin_num).to_s
+		n_expected = norm(expected_pinyin)
 		if n_answer == n_expected
 			correct_points = 2
 			flash_data = {success: "Correct: " + self.to_correct_s}
@@ -66,14 +66,18 @@ class Word < ActiveRecord::Base
 		[correct_points, flash_data]
 	end
 	def tone_class
-		pinyin = self.pinyin_num.strip
-		if pinyin.include? ','
-			pinyin = pinyin.split(',').first.strip 
-		end
+		pinyin = expected_pinyin
 		pinyin.gsub(/[a-zA-Z]+/,"").gsub("'","").gsub(" ","")
 	end
 
 	private
+	def expected_pinyin
+		pinyin = self.pinyin_num.strip
+		if pinyin.include? ','
+			pinyin = pinyin.split(',').first.strip 
+		end
+		pinyin
+	end
 	def strip_tone(str)
 		str.gsub(/[0-5]/, '')
 	end
