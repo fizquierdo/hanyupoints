@@ -69,6 +69,19 @@ class Word < ActiveRecord::Base
 		pinyin = expected_pinyin
 		pinyin.gsub(/[a-zA-Z]+/,"").gsub("'","").gsub(" ","")
 	end
+	def characters
+		self.han.split('')
+	end
+
+	def character_decompositions
+		char_decompositions = []
+		self.characters.each do |char|
+			# NOTE decomposition could be precalculated and added to the model
+			char_radicals = ApplicationController.helpers.decompose(char, list_id = 1) # 1 for detailed decomp.
+			char_decompositions << {char: char, decomposition: char_radicals.join(', ')}
+		end
+		char_decompositions 
+	end
 
 	private
 	def expected_pinyin

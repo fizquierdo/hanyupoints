@@ -94,4 +94,24 @@ module ApplicationHelper
 			end
 		end
 	end
+	def decompose(character, list_id = 0)
+		url = 'http://www.hanzicraft.com/character/' + character.to_s
+		url = URI.encode url
+		html = open(url)
+		page = Nokogiri::HTML(html.read)
+		decompositions = []
+		page.css("div.decompbox").each_with_index do |box, i|
+			# 0 decomposes in tails
+			# 1 decomposes in radicals
+			# 2 decomposes following some graphical pattern
+			begin
+				han, decomp = box.text.gsub("\n","").to_s.split('=>')
+				decompositions[i] = decomp.strip.split(',').map{|n|n.strip}
+			rescue
+				decompositions[i] = []
+			end
+		end
+		decompositions[list_id]
+	end
+
 end

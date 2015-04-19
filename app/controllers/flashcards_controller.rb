@@ -10,6 +10,7 @@ class FlashcardsController < ApplicationController
 		@relevant_grammar_points = GrammarPointsHelper.grammar_points_with(@word.han, @grammar_levels)
 		@understandable_examples = GrammarPointsHelper.understandable_with(@relevant_grammar_points, @mastered_words)
 		@word.update_sound_file
+		@decompositions = @word.character_decompositions
 	end
 	def check
 		@word = Word.find(params[:id])

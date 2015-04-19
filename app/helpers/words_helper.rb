@@ -5,7 +5,7 @@ module WordsHelper
 											.map{|w|w.han}
 	end
 	def self.single_character_words(level)
-		Word.where(level: level).select{|w| w.han.split('').size == 1}
+		Word.where(level: level).select{|w| w.characters.size == 1}
 	end
 	def self.character_alphabet(words)
 		chars = []

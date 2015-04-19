@@ -11,21 +11,44 @@
 </div> 
 
 
-<div class="row"> 
-	<div class="jumbotron ">
-		<p class="text-muted">
-		Enter pinyin for this word (HSK <%= @word.level %>)
-		</p>
-		<h1><%= @word.han %></h1>
-		<%= form_for(@word, url: check_url(id: @word.id)) do |f| %>
-			<div class="field">
-				<%= text_field_tag :answer, '', :autocomplete => :off %>
-				<%= submit_tag 'Check', class: "btn btn-primary" %>
-			</div>
-		<% end %>
-		<p>
-				<%= audio_tag "sound.mp3", controls: true, autoplay: true %>
-		</p>
+<div class="jumbotron ">
+	<div class="row"> 
+		<div class="col-md-7">
+			<p class="text-muted">
+			Enter pinyin for this word (HSK <%= @word.level %>)
+			</p>
+			<h1><%= @word.han %></h1>
+			<%= form_for(@word, url: check_url(id: @word.id)) do |f| %>
+				<div class="field">
+					<%= text_field_tag :answer, '', :autocomplete => :off %>
+					<%= submit_tag 'Check', class: "btn btn-primary" %>
+				</div>
+			<% end %>
+			<p>
+			<%= audio_tag "sound.mp3", controls: true, autoplay: true %>
+			</p>
+		</div>
+
+		<div class="col-md-5">
+			<p class="text-muted">
+				Decomposition 
+			</p>
+			<table class="table table-condensed">
+				<tbody>
+				  <% @decompositions.each do |d| %>
+					<tr>
+						<td>
+							<%= d[:char] %>
+						</td>
+						<td>
+							<%= d[:decomposition] %>
+						</td>
+					</tr>
+					<% end %>
+
+				</tbody>
+			</table>
+		</div>
 	</div>
 </div> 
 
@@ -81,14 +104,14 @@
 </div> 
 
 <% unless @mastered_words.empty? %>
-<div class="row"> 
-	<div class="panel panel-warning">
-		<div class="panel-heading">
-			Words you probably know, HSK level <%= @hsk_levels %>, Grammar level <%= @grammar_levels %>
+	<div class="row"> 
+		<div class="panel panel-warning">
+			<div class="panel-heading">
+				Words you probably know, HSK level <%= @hsk_levels %>, Grammar level <%= @grammar_levels %>
+			</div>
+			<div class="panel-body">
+				<p><%= @mastered_words.join(", ") %></p>
+			</div>
 		</div>
-		<div class="panel-body">
-			<p><%= @mastered_words.join(", ") %></p>
-		</div>
-	</div>
-</div> 
+	</div> 
 <% end %>

@@ -1,24 +1,5 @@
 #encoding: UTF-8
 
-def decompose(character, list_id = 0)
-		url = 'http://www.hanzicraft.com/character/' + character.to_s
-		url = URI.encode url
-		html = open(url)
-		page = Nokogiri::HTML(html.read)
-		decompositions = []
-		page.css("div.decompbox").each_with_index do |box, i|
-			# 0 decomposes in tails
-			# 1 decomposes in radicals
-			# 2 decomposes following some graphical pattern
-			begin
-				han, decomp = box.text.gsub("\n","").to_s.split('=>')
-				decompositions[i] = decomp.strip.split(',').map{|n|n.strip}
-			rescue
-				decompositions[i] = []
-			end
-		end
-		decompositions[list_id]
-end
 
 def build_radical_network(words, radicals)
 		all_edges = []
@@ -51,7 +32,7 @@ namespace :da do
 		radicals = {}
 		puts "#{characters.size} characters to be decomposed "
 		characters.each do |char|
-			char_radicals = decompose(char, list_id = 0)
+			char_radicals = ApplicationController.helpers.decompose(char, list_id = 0)
 			char_radicals.each do |radical|
 				radical.gsub!('No glyph available', 'x')
 				if radicals.has_key?(radical)
