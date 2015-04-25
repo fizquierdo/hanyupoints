@@ -6,4 +6,8 @@ class Guess < ActiveRecord::Base
 		# 2 points correct, 1 point tone correct
 		self.correct.to_f / (self.attempts.to_f * 2)
 	end
+	def to_s
+		self.correct.to_s + '/' + self.attempts.to_s 
+	end
+
 end

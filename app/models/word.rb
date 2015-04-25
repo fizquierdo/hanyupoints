@@ -33,6 +33,14 @@ class Word < ActiveRecord::Base
 		end
 		rate
 	end
+	def guess_ratio(logged_user_id)
+		guesses = Guess.where(user_id: logged_user_id, word_id: self.id)
+		if guesses.empty?
+			ratio = '0/0'
+		else
+			guesses.first.ratio
+		end
+	end
 	def update_sound_file
 		sound_file =  File.join(Rails.root, "public", "audios", "sound.mp3")
     File.delete(sound_file) if File.exist?(sound_file)

@@ -15,7 +15,7 @@
 	<div class="row"> 
 		<div class="col-md-7">
 			<p class="text-muted">
-			Enter pinyin for this word (HSK <%= @word.level %>, success <%= @word_success_rate %>)
+			Enter pinyin 
 			</p>
 			<h1><%= @word.han %></h1>
 			<%= form_for(@word, url: check_url(id: @word.id)) do |f| %>
@@ -30,24 +30,41 @@
 		</div>
 
 		<div class="col-md-5">
-			<p class="text-muted">
-				Decomposition 
-			</p>
+
 			<table class="table table-condensed">
+				<thead class="text-muted small">
+					<tr>
+						<th>HSK level</th>
+						<th>Success ratio </th>
+						<th>Points/attempts </th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><%= @word.level %></td>
+						<td><%= @word_success_rate %></td>
+						<td><%= @word_guess_ratio %></td>
+					</tr>
+				</tbody>
+			</table>
+
+			<table class="table table-condensed">
+				<thead class="text-muted small">
+					<tr>
+						<th>Character</th>
+						<th>Decomposition</th>
+					</tr>
+				</thead>
 				<tbody>
 				  <% @decompositions.each do |d| %>
 					<tr>
-						<td>
-							<%= d[:char] %>
-						</td>
-						<td>
-							<%= d[:decomposition] %>
-						</td>
+						<td><%= d[:char] %></td>
+						<td><%= d[:decomposition] %></td>
 					</tr>
 					<% end %>
-
 				</tbody>
 			</table>
+
 		</div>
 	</div>
 </div> 
