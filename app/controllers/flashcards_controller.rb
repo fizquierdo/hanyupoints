@@ -11,6 +11,7 @@ class FlashcardsController < ApplicationController
 		@understandable_examples = GrammarPointsHelper.understandable_with(@relevant_grammar_points, @mastered_words)
 		@word.update_sound_file
 		@decompositions = @word.character_decompositions
+		@word_success_rate = @word.success_rate(current_user.id)
 	end
 	def check
 		@word = Word.find(params[:id])
