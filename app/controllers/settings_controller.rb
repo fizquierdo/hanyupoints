@@ -1,6 +1,6 @@
 class SettingsController < ApplicationController
 	before_action :authenticate_user! 
-	# TODO you should only be able to change your own settings
+	before_action :check_own_user, only: [:show, :edit, :update]
 
 	def index
 		settings = Setting.where(user_id: current_user.id)
@@ -62,5 +62,12 @@ class SettingsController < ApplicationController
     def setting_params
       params.require(:setting).permit(:hsk_level, :grammar_level)
     end
+
+
+    # Dont let a logged-in user edit or see others parameters but his own
+		def check_own_user
+      @url_setting = Setting.find(params[:id])
+			redirect_to root_path unless @url_setting.user.id == current_user.id 
+		end
 
 end
