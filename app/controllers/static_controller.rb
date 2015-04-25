@@ -1,14 +1,12 @@
 class StaticController < ApplicationController
 	before_action :authenticate_user!, :except => [:home, :grammar_tree_A1] 
-	def home
-		words = Word.where(level: 1).select{|w| w.han.include? '有'}
-		grammar_network_with_words(words, 'A1', user_color = false)
-	end
+
 	def tone_network
 		@word_levels = [1,2]
 		words = Word.where(level: @word_levels)
 		tone_pair_network(words)
 	end
+
 	def radicals
 		# update the data.json file
 		@level = ApplicationController.helpers.radicals_hsk_levels
@@ -17,12 +15,14 @@ class StaticController < ApplicationController
 		dest = File.join(Rails.root, "public", "data.json")
 		FileUtils.cp(src, dest)
 	end
+
 	def network
 		@word_levels = [1,2]
 		words = Word.where(level: @word_levels)
 		@grammar_levels = ['A1']
 		grammar_network_with_words(words, @grammar_levels)
 	end
+
 	def hsk_network(words)
 		nodes = words.map{|w| w.to_node(current_user.id)}
 		#all_edges = character_edges(words.map{|w| w.han})
@@ -30,6 +30,7 @@ class StaticController < ApplicationController
 		nodes += new_nodes
 	 	ApplicationController.helpers.generate_jsonfile(nodes, edges)
 	end
+
 	def hsk_grammar_network(words, grammar_points)
 		all_nodes = words.map{|w| w.to_node(current_user.id)}
 		all_edges = character_edges(words.map{|w| w.han})
@@ -60,6 +61,56 @@ class StaticController < ApplicationController
 	def network_HSK3
 		@words = Word.where(level: 3)
 		hsk_network(@words)
+	end
+
+	def home
+		# A simple example
+		#words = Word.where(level: 1).select{|w| w.han.include? '有'}
+		#grammar_network_with_words(words, 'A1', user_color = false)
+		
+		# Lets build a more welcomming custom network
+		all_nodes = []
+		all_edges = []
+		# english words
+		%w(I of-particle My female friend girlfriend very pretty).each do |eng_word|
+			pairs = [['label', eng_word],['labelcolor', '#88aa77']]
+			all_nodes << ApplicationController.helpers.springy_node(pairs)
+		end
+		# mandaring words
+		['我', '我的', '的', '很', '漂亮', '女', '朋友', '女朋友'].each do |han_word|
+			pairs = [['label', han_word]]
+			all_nodes << ApplicationController.helpers.springy_node(pairs)
+		end
+		# final sentence
+		pairs = [['label','我的女朋友很漂亮'],['labelcolor', '#00a0b0']]
+		all_nodes << ApplicationController.helpers.springy_node(pairs)
+		# edges
+		translations = {'I'						=> '我', 
+										'of-particle' => '的',
+										'My'					=> '我的',
+										'female'			=> '女',
+										'friend'			=> '朋友',
+										'girlfriend'	=> '女朋友',
+										'very'				=> '很',
+										'pretty'			=> '漂亮'
+		}
+		translations.each_pair do |eng, han|
+			all_edges << ApplicationController.helpers.springy_edge(eng, han, directional=false)
+		end
+		compositions = { 
+										'我'		=> '我的',
+										'的'		=> '我的',
+										'女'		=> '女朋友',
+										'朋友' 	=> '女朋友',
+										'我的'  => '我的女朋友很漂亮',
+										'女朋友'=> '我的女朋友很漂亮',
+										'很'		=> '我的女朋友很漂亮',
+										'漂亮'	=> '我的女朋友很漂亮'
+		}
+		compositions.each_pair do |from, to|
+			all_edges << ApplicationController.helpers.springy_edge(from, to, directional=true)
+		end
+	 	ApplicationController.helpers.generate_jsonfile(all_nodes, all_edges)
 	end
 
 	private
