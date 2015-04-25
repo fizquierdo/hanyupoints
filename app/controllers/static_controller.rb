@@ -73,7 +73,7 @@ class StaticController < ApplicationController
 		all_edges = []
 		# english words
 		%w(I of-particle My female friend girlfriend very pretty).each do |eng_word|
-			pairs = [['label', eng_word],['labelcolor', '#88aa77']]
+			pairs = [['label', eng_word],['labelcolor', '#770000']]
 			all_nodes << ApplicationController.helpers.springy_node(pairs)
 		end
 		# mandaring words
