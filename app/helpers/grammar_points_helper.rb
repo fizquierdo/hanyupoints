@@ -2,7 +2,7 @@ module GrammarPointsHelper
 	def self.grammar_points_with(word, gp_levels = ['A1', 'A2'])
 		GrammarPoint.where(level: gp_levels).select{|gp| gp.pattern.include? word}
 	end
-	def self.understandable_with(gps, words, threshold = 0.4)
+	def self.understandable_with(gps, words, threshold = 0.2)
 		understandable_examples = []
 		gps.each do |gp|
 			examples = GrammarPointExample.where(grammar_point_id: gp.id)
