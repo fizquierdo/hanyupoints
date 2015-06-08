@@ -105,7 +105,7 @@ class Word < ActiveRecord::Base
 		str.gsub(/[0-5]/, '')
 	end
 	def norm(str)
-		str.capitalize.gsub(' ','').gsub("'","")
+		str.capitalize.gsub(' ','').gsub("'","").gsub('5','')
 	end
 	def node_pairs
 		[

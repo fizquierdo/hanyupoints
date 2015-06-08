@@ -48,6 +48,11 @@ class WordTest < ActiveSupport::TestCase
 		 points, msg = w.evaluate('lei4')
 		 assert_equal(2, points)
 	 end
+   test "correct answer gives 2 points even if pinyin 5 is ommited" do
+		 w = Word.new({pinyin_num: "yi1si5"})
+		 points, msg = w.evaluate('yi1si')
+		 assert_equal(2, points)
+	 end
    test "correct answer even if spaces are present" do
 		 w = words(:three)
 		 ['ta1ta2', 'ta1 ta2', ' ta1 ta2 '].each do |answer|
