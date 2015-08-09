@@ -48,7 +48,7 @@ gem 'nokogiri'
 gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
 
-gem 'tts'
+gem 'tts', '~>0.6.0'
 
 #gem 'table_print'
 gem 'terminal-table'

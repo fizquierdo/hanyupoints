@@ -45,7 +45,11 @@ class Word < ActiveRecord::Base
 		sound_file =  File.join(Rails.root, "public", "audios", "sound.mp3")
     File.delete(sound_file) if File.exist?(sound_file)
 		#  tts gem extends String class with google-tts powered mp3 file generation
-		self.han.to_file("zh", sound_file)
+		begin
+			self.han.to_file("zh", sound_file)
+		rescue Exception  
+			# Do something meaningful (service currently unavailable)
+		end
 	end
 	def present_in_patterns?(patterns)
 		patterns.select{|p| p.include? self.han}.size > 0
