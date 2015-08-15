@@ -1,7 +1,7 @@
 
 def collect_levels
 		word_level = [1, 2]
-		gp_levels = %w(A1, A2)
+		gp_levels = %w(A1 A2)
 		words = Word.where(level: word_level)
 		gps = GrammarPoint.all.select{|gp| gp_levels.include? gp.level}
 		[words, gps]
@@ -9,6 +9,19 @@ end
 
 
 namespace :data do
+
+	desc "Show decompositions of each word"
+	task decomp: :environment do
+		words, gps = collect_levels
+		words.each_with_index do |w, i|
+			puts w.han + "\t" + w.meaning
+			w.characters.each do |ch|
+				p ApplicationController.helpers.decompose(ch, list_id = 1)
+			end
+			break if i > 10
+		end
+	end
+
 	desc "Show per word wich grammar points are relevant"
 	task words: :environment do
 		words, gps = collect_levels
@@ -53,7 +66,9 @@ namespace :data do
 		rows = []
 		gps.each do |gp|
 			sentences = GrammarPointExample.where(grammar_point_id: gp.id).map{|s| s.sentence}
+			puts '=' * 40
 			puts gp.level.to_s + " " + gp.pattern.to_s 
+			puts '=' * 40
 			sentences.each do |sentences|
 				puts " " + sentences
 			end
